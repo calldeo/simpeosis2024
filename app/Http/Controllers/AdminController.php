@@ -24,12 +24,12 @@ public function destroy($id)
         
         if ($user) {
             $user->forceDelete(); // Menghapus data secara permanen
-            return redirect('/admin')->with('toast_success', 'Data berhasil dihapus secara permanen');
+            return redirect('/admin')->with('uccess', 'Data berhasil dihapus secara permanen');
         } else {
-            return redirect('/admin')->with('toast_error', 'Data tidak ditemukan.');
+            return redirect('/admin')->with('error', 'Data tidak ditemukan.');
         }
     } catch (\Exception $e) {
-        return redirect('/admin')->with('toast_error', 'Gagal menghapus data. Silakan coba lagi.');
+        return redirect('/admin')->with('error', 'Gagal menghapus data. Silakan coba lagi.');
     }
 }
 
@@ -64,7 +64,7 @@ public function destroy($id)
         ]);
 
         // Redirect dengan pesan sukses
-        return redirect('/admin')->with('toast_success', 'Data Berhasil Ditambahkan');
+        return redirect('/admin')->with('success', 'Data Berhasil Ditambahkan');
    
 
 }
@@ -76,18 +76,28 @@ public function destroy($id)
         return view('edit.edit_admin', compact('admin'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $data = $request->validate([
-            'name' => ['required', 'min:3', 'max:30'],
-            'level' => 'required',
-            'email' => 'required|unique:tb_siswa,email',
-            'password' => ['required', 'min:8', 'max:12'],
-        ]);
+   public function update(Request $request, $id)
+{
+    $admin = User::find($id);
 
-        $data['password'] = bcrypt($request->password); // Menghash password sebelum disimpan
-        $admin = User::find($id);
-        $admin->update($data);
-        return redirect('/admin')->with('toast_success', 'Data Berhasil Diupdate');
-    }
+    $request->validate([
+        'name' => ['required', 'min:3', 'max:30'],
+        'level' => 'required',
+        'email' => 'required|email|unique:users,email,' . $admin->id,
+        'password' => ['required', 'min:8', 'max:12'],
+    ]);
+
+    $data = [
+        'name' => $request->name,
+        'level' => $request->level,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+    ];
+
+    $admin->update($data);
+
+    return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
+    
+}
+
 }

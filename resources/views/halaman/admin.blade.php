@@ -60,9 +60,16 @@
                                 <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
                             </div>
                             @endif
-
-
-
+                            @if(session('update_success'))
+                            <div class="alert alert-warning alert-dismissible fade show">
+                                <svg viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                </svg>
+                                <strong>Success!</strong> {{ session('update_success') }}
+                                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
+                            </div>
+                            @endif
                             <div class="table-responsive">
                                 <table class="table table-responsive-md">
                                     <thead>
@@ -94,17 +101,19 @@
                                             <td class="text-center">{{$g->level}}</td>
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
-                                                    <form id="editForm_{{ $g->id }}" action="/admin/{{ $g->id }}/edit_admin" method="GET">
-                                                        <button type="submit" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></button>
-                                                    </form>
+                                                <form id="editForm_{{ $g->id }}" action="/admin/{{ $g->id }}/edit_admin" method="GET">
+                                                    <button type="submit" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></button>
+                                                </form>
 
-                                                    <form id="deleteForm_{{ $g->id }}" action="{{ route('admin.destroy', $g->id) }}" method="POST" class="delete-form">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger shadow btn-xs sharp delete-btn" data-id="{{ $g->id }}"><i class="fa fa-trash"></i></button>
-                                                    </form>
+                                                <div class="mx-1"></div> <!-- Tambahkan jarak di sini -->
 
-                                                </div>
+                                                <form id="deleteForm_{{ $g->id }}" action="{{ route('admin.destroy', $g->id) }}" method="POST" class="delete-form">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger shadow btn-xs sharp delete-btn" data-id="{{ $g->id }}"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </div>
+
                                             </td>
                                         </tr>
                                         @endif
