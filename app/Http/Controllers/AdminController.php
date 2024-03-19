@@ -70,11 +70,13 @@ public function destroy($id)
 }
 
 
-    public function edit($id)
-    {
-        $admin = User::find($id);
-        return view('edit.edit_admin', compact('admin'));
-    }
+   public function edit($id)
+{
+    $admin = User::find($id);
+    // Jangan mengirimkan password ke tampilan
+    unset($admin->password);
+    return view('edit.edit_admin', compact('admin'));
+}
 
    public function update(Request $request, $id)
 {

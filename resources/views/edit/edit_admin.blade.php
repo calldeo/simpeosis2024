@@ -79,7 +79,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Vertical Forms with icon</h4>
+                                <h4 class="card-title">Edit Data Admin</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -124,8 +124,8 @@
                             <select class="form-control default-select" id="sel1" name="level" required>
                                 <option value="">--PILIH LEVEL--</option>
                                 <option value="admin">Admin</option>
-                                <option value="guru">Guru</option>
-                                <option value="siswa">Siswa</option>
+                                {{-- <option value="guru">Guru</option>
+                                <option value="siswa">Siswa</option> --}}
                             </select>
                         </div>
                         <div class="form-group">

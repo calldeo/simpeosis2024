@@ -79,7 +79,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Vertical Forms with icon</h4>
+                                <h4 class="card-title">Add Data Admin</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -123,8 +123,8 @@
                                             <select class="form-control default-select" id="sel1" name="level" required>
                                                 <option  value="">--PILIH LEVEL--</option>
                                                 <option  value="admin">Admin</option>
-                                                <option  value="guru">Guru</option>
-                                                <option  value="siswa">Siswa</option>
+                                                {{-- <option  value="guru">Guru</option>
+                                                <option  value="siswa">Siswa</option> --}}
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -180,4 +180,41 @@
     <!-- Required vendors -->
  @include('template.scripts')
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- Include SweetAlert library -->
+<script>
+    // Function to handle form submission
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var formData = $(this).serialize(); // Serialize form data
+            $.ajax({
+                type: 'POST',
+                url: '/admin/store', // URL to your form submission endpoint
+                data: formData,
+                success: function (response) {
+                    // Handle success case if needed
+                    // For example, redirect to another page
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Oops...',
+                    //     text: 'Failed to add data!',
+                    //     footer: 'Please try again or contact support'
+                    // });
+                    window.location.href = '/admin';
+                },
+                error: function (xhr, status, error) {
+                    // Handle error case
+                    // Display SweetAlert notification
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to add data!',
+                        footer: 'Please try again '
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 </html>
