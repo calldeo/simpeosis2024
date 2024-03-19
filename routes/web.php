@@ -6,11 +6,9 @@ use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\GuruController;
-use App\Http\Controllers\PelanggaranController;
-use App\Http\Controllers\PenghargaanController;
-use App\Http\Controllers\RiwayatController;
-use App\Http\Controllers\PenangananController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuruuController;
+use App\Http\Controllers\SiswaaController;
 
 
 
@@ -88,4 +86,21 @@ route::get('/add_admin',[AdminController::class,'add_admin'])->name('add_admin')
 Route::post('/admin/store',[AdminController::class,'store']);
 Route::get('/admin/{id}/edit_admin  ',[AdminController::class,'edit']);
 Route::put('/admin/{id}',[AdminController::class,'update']);
+
+
+
+
+route::get('/guruu',[GuruuController::class,'guruu'])->name('guruu');
+Route::delete('/guruu/{id}', [GuruuController::class,'destroy'])->name('guruu.destroy');
+route::get('/add_guruu',[GuruuController::class,'add_guruu'])->name('add_guruu');
+Route::post('/guruu/store',[GuruuController::class,'store']);
+Route::get('/guruu/{id}/edit_guruu  ',[GuruuController::class,'edit']);
+Route::put('/guruu/{id}',[GuruuController::class,'update']);
+
+route::get('/siswaa',[SiswaaController::class,'siswaa'])->name('siswaa');
+Route::delete('/siswaa/{id}', [SiswaaController::class,'destroy'])->name('siswaa.destroy');
+route::get('/add_siswaa',[siswaaController::class,'add_siswaa'])->name('add_siswaa');
+Route::post('/siswaa/store',[SiswaaController::class,'store']);
+Route::get('/siswaa/{id}/edit_siswaa  ',[SiswaaController::class,'edit']);
+Route::put('/siswaa/{id}',[SiswaaController::class,'update']);
 

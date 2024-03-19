@@ -27,6 +27,18 @@
 						</a>
                        
                     </li>
+					  <li><a  href="/guruu" aria-expanded="false">
+							<i class="flaticon-077-menu-1"></i>
+							<span class="nav-text">Data Guru</span>
+						</a>
+                       
+                    </li>
+					<li><a  href="/siswaa" aria-expanded="false">
+							<i class="flaticon-077-menu-1"></i>
+							<span class="nav-text">Data Siswa</span>
+						</a>
+                       
+                    </li>
                 </ul>
 				<div class="copyright">
 					<p><strong>E-Vote </strong> © 2024 All Rights Reserved</p>

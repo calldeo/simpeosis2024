@@ -79,60 +79,62 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Add</h4>
+                                <h4 class="card-title">Edit Data Admin</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form class="form-valide-with-icon" action="/admin/store" method="post" enctype="multipart/form-data">
+                                    <form action="/guruu/{{ $guruu->id }}" method="POST" enctype="multipart/form-data">
+                                        @method('put')
                                         @csrf
-                                        <div class="form-group">
-                                            <label class="text-label">Name</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                                </div>
-                                                <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name..">
-                                            </div>
+                                       <div class="form-group">
+                                    <label class="text-label">Name *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="text-label">Email</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                                </div>
-                                                <input type="text" class="form-control" id="val-username1" name="email" placeholder="Enter a email..">
-                                            </div>
+                                        <input type="text" class="form-control" id="val-username1" name="name" value="{{ $guruu->name }}" placeholder="Enter a name.." required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-label">Email *</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="text-label">Password *</label>
-                                            <div class="input-group transparent-append">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                                </div>
-                                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one..">
-                                                <div class="input-group-append show-pass ">
-                                                    <span class="input-group-text "> 
-                                                        <i class="fa fa-eye-slash"></i>
-                                                        <i class="fa fa-eye"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Select list (select one):</label>
-                                            <select class="form-control default-select" id="sel1" name="level" required>
-                                                <option  value="">--PILIH LEVEL--</option>
-                                                <option  value="admin">Admin</option>
-                                                {{-- <option  value="guru">Guru</option>
-                                                <option  value="siswa">Siswa</option> --}}
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input id="checkbox1" class="form-check-input" type="checkbox">
-                                                <label for="checkbox1" class="form-check-label">Check me out</label>
-                                            </div>
-                                        </div>
+                                        <input type="email" class="form-control" id="val-username1" name="email" placeholder="Enter a email.." value="{{ $guruu->email }}" required>
+                                    </div>
+                                </div>
+                        <div class="form-group">
+                            <label class="text-label">Password *</label>
+                            <div class="input-group transparent-append">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $guruu->password }}"required>
+                                <div class="input-group-append show-pass ">
+                                    <span class="input-group-text "> 
+                                        <i class="fa fa-eye-slash"></i>
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Select list (select one): *</label>
+                            <select class="form-control default-select" id="sel1" name="level" required>
+                                <option value="">--PILIH LEVEL--</option>
+                                {{-- <option value="admin">Admin</option> --}}
+                               <option value="guru">Guru</option>
+                                {{-- <option value="siswa">Siswa</option> --}} --}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input id="checkbox1" class="form-check-input" type="checkbox" required>
+                                <label for="checkbox1" class="form-check-label">Check me out *</label>
+                            </div>
+                        </div>
+
                                         <button type="submit" class="btn mr-2 btn-primary">Submit</button>
                                         <button type="submit" class="btn btn-light">cencel</button>
                                     </form>
@@ -180,41 +182,4 @@
     <!-- Required vendors -->
  @include('template.scripts')
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- Include SweetAlert library -->
-<script>
-    // Function to handle form submission
-    $(document).ready(function () {
-        $('form').submit(function (e) {
-            e.preventDefault();
-            var formData = $(this).serialize(); // Serialize form data
-            $.ajax({
-                type: 'POST',
-                url: '/admin/store', // URL to your form submission endpoint
-                data: formData,
-                success: function (response) {
-                    // Handle success case if needed
-                    // For example, redirect to another page
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: 'Oops...',
-                    //     text: 'Failed to add data!',
-                    //     footer: 'Please try again or contact support'
-                    // });
-                    window.location.href = '/admin';
-                },
-                error: function (xhr, status, error) {
-                    // Handle error case
-                    // Display SweetAlert notification
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Failed to add data!',
-                        footer: 'Please try again '
-                    });
-                }
-            });
-        });
-    });
-</script>
-
 </html>

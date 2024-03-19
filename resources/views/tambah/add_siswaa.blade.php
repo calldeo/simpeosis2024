@@ -83,56 +83,57 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form class="form-valide-with-icon" action="/admin/store" method="post" enctype="multipart/form-data">
+                                    <form class="form-valide-with-icon" action="/siswaa/store" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label class="text-label">Name</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                                </div>
-                                                <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name..">
+                                        <label class="text-label">Name *</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                            </div>
+                                            <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name.." required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="text-label">Email *</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                            </div>
+                                            <input type="email" class="form-control" id="val-email" name="email" placeholder="Enter an email.." required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="text-label">Password *</label>
+                                        <div class="input-group transparent-append">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                            </div>
+                                            <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." required>
+                                            <div class="input-group-append show-pass ">
+                                                <span class="input-group-text "> 
+                                                    <i class="fa fa-eye-slash"></i>
+                                                    <i class="fa fa-eye"></i>
+                                                </span>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="text-label">Email</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                                </div>
-                                                <input type="text" class="form-control" id="val-username1" name="email" placeholder="Enter a email..">
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Select list (select one):</label>
+                                        <select class="form-control default-select" id="sel1" name="level" required>
+                                            <option value="">--PILIH LEVEL--</option>
+                                            {{-- <option value="admin">Admin</option>
+                                            <option value="guru">Guru</option> --}}
+                                            <option value="siswa">Siswa</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="checkbox1" class="form-check-input" type="checkbox" required>
+                                            <label for="checkbox1" class="form-check-label">Check me out</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="text-label">Password *</label>
-                                            <div class="input-group transparent-append">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                                </div>
-                                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one..">
-                                                <div class="input-group-append show-pass ">
-                                                    <span class="input-group-text "> 
-                                                        <i class="fa fa-eye-slash"></i>
-                                                        <i class="fa fa-eye"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Select list (select one):</label>
-                                            <select class="form-control default-select" id="sel1" name="level" required>
-                                                <option  value="">--PILIH LEVEL--</option>
-                                                <option  value="admin">Admin</option>
-                                                {{-- <option  value="guru">Guru</option>
-                                                <option  value="siswa">Siswa</option> --}}
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input id="checkbox1" class="form-check-input" type="checkbox">
-                                                <label for="checkbox1" class="form-check-label">Check me out</label>
-                                            </div>
-                                        </div>
+                                    </div>
+
                                         <button type="submit" class="btn mr-2 btn-primary">Submit</button>
                                         <button type="submit" class="btn btn-light">cencel</button>
                                     </form>
@@ -200,7 +201,7 @@
                     //     text: 'Failed to add data!',
                     //     footer: 'Please try again or contact support'
                     // });
-                    window.location.href = '/admin';
+                    window.location.href = '/siswaa';
                 },
                 error: function (xhr, status, error) {
                     // Handle error case

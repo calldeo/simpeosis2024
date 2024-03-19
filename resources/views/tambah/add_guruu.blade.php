@@ -83,7 +83,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form class="form-valide-with-icon" action="/admin/store" method="post" enctype="multipart/form-data">
+                                    <form class="form-valide-with-icon" action="/guruu/store" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
                                             <label class="text-label">Name</label>
@@ -122,9 +122,9 @@
                                             <label>Select list (select one):</label>
                                             <select class="form-control default-select" id="sel1" name="level" required>
                                                 <option  value="">--PILIH LEVEL--</option>
-                                                <option  value="admin">Admin</option>
-                                                {{-- <option  value="guru">Guru</option>
-                                                <option  value="siswa">Siswa</option> --}}
+                                                {{-- <option  value="admin">Admin</option> --}}
+                                                <option  value="guru">Guru</option>
+                                                {{-- <option  value="siswa">Siswa</option> --}} 
                                             </select>
                                         </div>
                                         <div class="form-group">
