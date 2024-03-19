@@ -200,7 +200,7 @@
                     //     text: 'Failed to add data!',
                     //     footer: 'Please try again or contact support'
                     // });
-                    window.location.href = '/admin';
+                    window.location.href = '/guruu';
                 },
                 error: function (xhr, status, error) {
                     // Handle error case
