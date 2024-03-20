@@ -9,7 +9,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuruuController;
 use App\Http\Controllers\SiswaaController;
-
+use App\Http\Controllers\OsisController;
 
 
 
@@ -58,7 +58,7 @@ Route::get('/siswa/check-nisn/{nisn}', 'SiswaController@checkNISN');
 Route::delete('/deleteSelected', [SiswaController::class, 'deleteSelected'])->name('deleteSelected');
 
 
-Route::group(['middleware' => ['auth','ceklevel:admin,guru']], function (){
+Route::group(['middleware' => ['auth','ceklevel:admin,guru,siswa']], function (){
     route::get('/home',[HomeController::class,'index'])->name('home');
     // route::get('/home',[HomeController::class,'penghargaan'])->name('home');
     
@@ -104,3 +104,9 @@ Route::post('/siswaa/store',[SiswaaController::class,'store']);
 Route::get('/siswaa/{id}/edit_siswaa  ',[SiswaaController::class,'edit']);
 Route::put('/siswaa/{id}',[SiswaaController::class,'update']);
 
+route::get('/calonosis',[OsisController::class,'osis'])->name('osis');
+route::get('/add_osis',[OsisController::class,'add_osis'])->name('add_osis');
+Route::post('/osis/store',[OsisController::class,'store']);
+Route::delete('/osis/{id_calon}', [OsisController::class,'destroy'])->name('osis.destroy');
+Route::get('/calonosis/{id_calon}/edit_osis  ',[OsisController::class,'edit']);
+Route::put('/calonosis/{id_calon}',[OsisController::class,'update']);

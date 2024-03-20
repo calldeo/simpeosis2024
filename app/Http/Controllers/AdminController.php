@@ -63,8 +63,9 @@ public function destroy($id)
             'password' => bcrypt($request->password),
         ]);
 
+        return redirect('/admin')->with('update_success', 'Data Berhasil Ditambahkan');
         // Redirect dengan pesan sukses
-        return redirect('/admin')->with('success', 'Data Berhasil Ditambahkan');
+        //return redirect('/admin')->with('update_success', 'Data Berhasil Ditambahkan');
    
 
 }
@@ -78,7 +79,7 @@ public function destroy($id)
     return view('edit.edit_admin', compact('admin'));
 }
 
-   public function update(Request $request, $id)
+   public function update1(Request $request, $id)
 {
     $admin = User::find($id);
 
@@ -100,6 +101,31 @@ public function destroy($id)
 
     return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
     
+}
+public function update(Request $request, $id)
+    {
+          // Ambil data pengguna yang akan diupdate
+        $admin = User::findOrFail($id);
+        // Validasi data yang diterima dari form
+       $request->validate([
+        'name' => ['required', 'min:3', 'max:30'],
+        'level' => 'required',
+        'email' => 'required|email|unique:users,email,' . $admin->id,
+        'password' => ['nullable', 'min:8', 'max:12'],
+    ]);
+
+
+        // Update data pengguna
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        if ($request->filled('password')) {
+            $admin->password = Hash::make($request->password);
+        }
+        $admin ->level = $request->level;
+        $admin->save();
+
+        // Redirect ke halaman daftar pengguna dengan pesan sukses
+        return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
 }
 
 }

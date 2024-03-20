@@ -47,6 +47,7 @@
                                 <a href="/add_siswaa" class="btn btn-success" title="Add">
                                     <i class="fa fa-plus"></i>
                                 </a>
+                                
                             </div>
                         </div>
                         <div class="card-body">

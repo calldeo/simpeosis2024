@@ -105,12 +105,12 @@
                                     </div>
                                 </div>
                         <div class="form-group">
-                            <label class="text-label">Password *</label>
+                            <label class="text-label">Password </label>
                             <div class="input-group transparent-append">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $admin->password }}"required>
+                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Tidak Wajib Diisi" value="{{ $admin->password }}">
                                 <div class="input-group-append show-pass ">
                                     <span class="input-group-text "> 
                                         <i class="fa fa-eye-slash"></i>
