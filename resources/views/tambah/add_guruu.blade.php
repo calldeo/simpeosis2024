@@ -69,7 +69,7 @@
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Validation</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Guru</a></li>
                         </ol>
                     </div>
                 </div>
@@ -86,22 +86,28 @@
                                     <form class="form-valide-with-icon" action="/guruu/store" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label class="text-label">Name</label>
+                                            <label class="text-label">Name *</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                                 </div>
-                                                <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name..">
+                                                <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name.." required>
                                             </div>
+                                             @error('name')
+                                            <span class="mt-4 text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label class="text-label">Email</label>
+                                            <label class="text-label">Email *</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                                 </div>
-                                                <input type="text" class="form-control" id="val-username1" name="email" placeholder="Enter a email..">
+                                                <input type="text" class="form-control" id="val-username1" name="email" placeholder="Enter a email.." required>
                                             </div>
+                                             @error('email')
+                                            <span class="mt-4 text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label class="text-label">Password *</label>
@@ -109,7 +115,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                                 </div>
-                                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one..">
+                                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." required>
                                                 <div class="input-group-append show-pass ">
                                                     <span class="input-group-text "> 
                                                         <i class="fa fa-eye-slash"></i>
@@ -117,24 +123,30 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                             @error('password')
+                                            <span class="mt-4 text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label>Select list (select one):</label>
+                                            <label>Select list (select one): * </label>
                                             <select class="form-control default-select" id="sel1" name="level" required>
                                                 <option  value="">--PILIH LEVEL--</option>
                                                 {{-- <option  value="admin">Admin</option> --}}
                                                 <option  value="guru">Guru</option>
                                                 {{-- <option  value="siswa">Siswa</option> --}} 
                                             </select>
+                                             @error('level')
+                                            <span class="mt-4 text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input id="checkbox1" class="form-check-input" type="checkbox">
-                                                <label for="checkbox1" class="form-check-label">Check me out</label>
+                                                <input id="checkbox1" class="form-check-input" type="checkbox" required>
+                                                <label for="checkbox1" class="form-check-label">Check me out &</label>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn mr-2 btn-primary">Submit</button>
-                                        <button type="submit" class="btn btn-light">cencel</button>
+                                         <button type="submit" class="btn btn-light" onclick="redirectToGuruu()">Cancel</button>
                                     </form>
                                 </div>
                             </div>
@@ -181,40 +193,6 @@
  @include('template.scripts')
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- Include SweetAlert library -->
-<script>
-    // Function to handle form submission
-    $(document).ready(function () {
-        $('form').submit(function (e) {
-            e.preventDefault();
-            var formData = $(this).serialize(); // Serialize form data
-            $.ajax({
-                type: 'POST',
-                url: '/admin/store', // URL to your form submission endpoint
-                data: formData,
-                success: function (response) {
-                    // Handle success case if needed
-                    // For example, redirect to another page
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: 'Oops...',
-                    //     text: 'Failed to add data!',
-                    //     footer: 'Please try again or contact support'
-                    // });
-                    window.location.href = '/guruu';
-                },
-                error: function (xhr, status, error) {
-                    // Handle error case
-                    // Display SweetAlert notification
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Failed to add data!',
-                        footer: 'Please try again '
-                    });
-                }
-            });
-        });
-    });
-</script>
+
 
 </html>

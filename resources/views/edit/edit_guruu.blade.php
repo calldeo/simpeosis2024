@@ -110,7 +110,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $guruu->password }}"required>
+                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $guruu->password }}">
                                 <div class="input-group-append show-pass ">
                                     <span class="input-group-text "> 
                                         <i class="fa fa-eye-slash"></i>
@@ -118,6 +118,7 @@
                                     </span>
                                 </div>
                             </div>
+                             <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password makan tidak perlu diisi </label>
                         </div>
                         <div class="form-group">
                             <label>Select list (select one): *</label>
@@ -136,7 +137,7 @@
                         </div>
 
                                         <button type="submit" class="btn mr-2 btn-primary">Submit</button>
-                                        <button type="submit" class="btn btn-light">cencel</button>
+                                          <button type="submit" class="btn btn-light" onclick="redirectToGuruu()">Cancel</button>
                                     </form>
                                 </div>
                             </div>

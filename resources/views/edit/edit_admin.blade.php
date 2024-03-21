@@ -63,13 +63,13 @@
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Hi, welcome back!</h4>
-                            <p class="mb-0">Validation</p>
+                            <p class="mb-0">Admin</p>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Validation</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit admin</a></li>
                         </ol>
                     </div>
                 </div>
@@ -105,19 +105,21 @@
                                     </div>
                                 </div>
                         <div class="form-group">
-                            <label class="text-label">Password </label>
+                            <label class="text-label">Password *</label>
                             <div class="input-group transparent-append">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Tidak Wajib Diisi" value="{{ $admin->password }}">
+                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $admin->password }}">
                                 <div class="input-group-append show-pass ">
                                     <span class="input-group-text "> 
                                         <i class="fa fa-eye-slash"></i>
                                         <i class="fa fa-eye"></i>
                                     </span>
                                 </div>
+                                
                             </div>
+                            <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password makan tidak perlu diisi </label>
                         </div>
                         <div class="form-group">
                             <label>Select list (select one): *</label>
@@ -136,7 +138,7 @@
                         </div>
 
                                         <button type="submit" class="btn mr-2 btn-primary">Submit</button>
-                                        <button type="submit" class="btn btn-light">cencel</button>
+                                       <button type="submit" class="btn btn-light" onclick="redirectToAdmin()">Cancel</button>
                                     </form>
                                 </div>
                             </div>

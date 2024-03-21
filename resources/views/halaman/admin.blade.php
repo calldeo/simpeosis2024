@@ -3,6 +3,7 @@
 
 <head>
     @include('template.headerr')
+    
 </head>
 
 <body>
@@ -41,13 +42,18 @@
                         <div class="card-header">
                             <h4 class="card-title">Data Admin</h4>
                             <div class="text-right">
-                                <button type="button" class="btn btn-warning" title="Import">
-                                    <i class="fa fa-upload"></i>
-                                </button>
-                                <a href="/add_admin" class="btn btn-success" title="Add">
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                            </div>
+                          <div class="input-group search-area right d-lg-inline-flex d-none">
+                                    <form id="searchForm" action="{{ route('admin.search') }}" method="GET">
+                                        <input id="searchInput" type="text" class="form-control" placeholder="Find something here..." name="query">
+                                        <!-- Tidak perlu tombol submit -->
+                                    </form>
+                                </div>
+                    
+                    <a href="/add_admin" class="btn btn-success" title="Add">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+
                         </div>
                         <div class="card-body">
                             @if(session('success'))
@@ -122,6 +128,9 @@
                                 </table>
                             </div>
                         </div>
+                               <div class="d-flex justify-content-end">
+                    {{ $users->links() }}
+                </div>
                     </div>
                 </div>
             </div>
@@ -174,6 +183,10 @@
             });
         });
     </script>
+
+
+
+
 </body>
 
 </html>

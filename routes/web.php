@@ -46,16 +46,7 @@ route::get('/exportphg',[PenghargaanController::class,'exportPenghargaan'])->nam
 route::get('/exportpng',[PenangananController::class,'exportPenanganan'])->name('exportPenanganan');
 
 
-route::get('/tambah_siswa',[SiswaController::class,'tambahsiswa'])->name('tambahsiswa');
-Route::post('/siswa/store',[SiswaController::class,'store']);
-Route::delete('/siswa/{id}', [SiswaController::class,'destroy'])->name('siswa.destroy');
-Route::get('/siswa/{id_siswa}/edit_siswa',[SiswaController::class,'edit']);
-Route::put('/siswa/{id_siswa}',[SiswaController::class,'update']);
-route::get('/siswa/search',[SiswaController::class,'search'])->name('search');
-route::get('/guru/search',[GuruController::class,'search'])->name('search');
-route::get('/siswa/viewimport',[SiswaController::class,'viewimport'])->name('viewimport');
-Route::get('/siswa/check-nisn/{nisn}', 'SiswaController@checkNISN');
-Route::delete('/deleteSelected', [SiswaController::class, 'deleteSelected'])->name('deleteSelected');
+
 
 
 Route::group(['middleware' => ['auth','ceklevel:admin,guru,siswa']], function (){
@@ -65,21 +56,11 @@ Route::group(['middleware' => ['auth','ceklevel:admin,guru,siswa']], function ()
 });
 
 
-route::get('/siswa',[SiswaController::class,'siswa'])->name('siswa');
-route::get('/guru',[GuruController::class,'guru'])->name('guru');
-
-
-route::get('/tambah_guru',[GuruController::class,'tambahguru'])->name('tambahguru');
-Route::post('/guru/store',[GuruController::class,'store']);
-Route::delete('/guru/{id}', [GuruController::class,'destroy'])->name('guru.destroy');
-Route::get('/guru/{id}/edit_guru',[GuruController::class,'edit']);
-Route::put('/guru/{id}',[GuruController::class,'update']);
 
 
 
 
-
-
+route::get('/admin/search',[AdminController::class,'search'])->name('admin.search');
 route::get('/admin',[AdminController::class,'admin'])->name('admin');
 Route::delete('/admin/{id}', [AdminController::class,'destroy'])->name('admin.destroy');
 route::get('/add_admin',[AdminController::class,'add_admin'])->name('add_admin');
@@ -89,7 +70,7 @@ Route::put('/admin/{id}',[AdminController::class,'update']);
 
 
 
-
+route::get('/guruu/search',[GuruuController::class,'search'])->name('guruu.search');
 route::get('/guruu',[GuruuController::class,'guruu'])->name('guruu');
 Route::delete('/guruu/{id}', [GuruuController::class,'destroy'])->name('guruu.destroy');
 route::get('/add_guruu',[GuruuController::class,'add_guruu'])->name('add_guruu');
@@ -97,6 +78,9 @@ Route::post('/guruu/store',[GuruuController::class,'store']);
 Route::get('/guruu/{id}/edit_guruu  ',[GuruuController::class,'edit']);
 Route::put('/guruu/{id}',[GuruuController::class,'update']);
 
+
+
+route::get('/siswaa/search',[SiswaaController::class,'search'])->name('siswaa.search');
 route::get('/siswaa',[SiswaaController::class,'siswaa'])->name('siswaa');
 Route::delete('/siswaa/{id}', [SiswaaController::class,'destroy'])->name('siswaa.destroy');
 route::get('/add_siswaa',[siswaaController::class,'add_siswaa'])->name('add_siswaa');

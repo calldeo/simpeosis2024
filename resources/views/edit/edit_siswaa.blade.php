@@ -69,7 +69,7 @@
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Form</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Validation</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Siswa</a></li>
                         </ol>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                                     <form action="/siswaa/{{ $siswaa->id }}" method="POST" enctype="multipart/form-data">
                                         @method('put')
                                         @csrf
-                                       <div class="form-group">
+                                     <div class="form-group">
                                     <label class="text-label">Name *</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -110,7 +110,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $siswaa->password }}"required>
+                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $siswaa->password }}">
                                 <div class="input-group-append show-pass ">
                                     <span class="input-group-text "> 
                                         <i class="fa fa-eye-slash"></i>
@@ -118,14 +118,15 @@
                                     </span>
                                 </div>
                             </div>
+                             <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password makan tidak perlu diisi </label>
                         </div>
                         <div class="form-group">
                             <label>Select list (select one): *</label>
                             <select class="form-control default-select" id="sel1" name="level" required>
                                 <option value="">--PILIH LEVEL--</option>
                                 {{-- <option value="admin">Admin</option> --}}
-                               {{-- <option value="guru">Guru</option> --}}
-                                <option value="siswa">Siswa</option> --}}
+                               <option value="guru">Guru</option>
+                                {{-- <option value="siswa">Siswa</option> --}} --}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -136,7 +137,7 @@
                         </div>
 
                                         <button type="submit" class="btn mr-2 btn-primary">Submit</button>
-                                        <button type="submit" class="btn btn-light">cencel</button>
+                                     <button type="submit" class="btn btn-light" onclick="redirectToSiswa()">Cancel</button>
                                     </form>
                                 </div>
                             </div>

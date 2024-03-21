@@ -41,6 +41,13 @@
                         <div class="card-header">
                             <h4 class="card-title">Data Siswa</h4>
                             <div class="text-right">
+                                 <div class="input-group search-area right d-lg-inline-flex d-none">
+                                    <form id="searchForm" action="{{ route('siswaa.search') }}" method="GET">
+                                        <input id="searchInput" type="text" class="form-control"
+                                            placeholder="Find something here..." name="query">
+                                        <!-- Tidak perlu tombol submit -->
+                                    </form>
+                                </div>
                                 <button type="button" class="btn btn-warning" title="Import">
                                     <i class="fa fa-upload"></i>
                                 </button>
@@ -122,6 +129,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                              <div class="d-flex justify-content-end">
+                            <!-- Pagination links -->
+                            {{ $users->links() }}
+                        </div>
                         </div>
                     </div>
                 </div>

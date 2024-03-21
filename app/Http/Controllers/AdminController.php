@@ -10,8 +10,10 @@ class AdminController extends Controller
 {
     public function admin(Request $request)
     {
+        $search=$request->search; 
+        $users = User::where('name','LIKE','%'.$request->search.'%')->Paginate(10);
         // Mengambil semua data user dengan level admin
-        $users = User::where('level', 'admin')->get();
+        $users = User::where('level', 'admin')->paginate(10);
 
         // Meneruskan data ke tampilan
         return view('halaman.admin', compact('users'));
@@ -43,7 +45,12 @@ public function destroy($id)
     public function store(Request $request)
 {
     $request->validate([
-        'name' => ['required', 'min:3', 'max:30'],
+        'name' => ['required', 'min:3', 'max:30', function ($attribute, $value, $fail) {
+        // Memeriksa apakah nama yang dimasukkan sudah ada dalam basis data
+        if (User::where('name', $value)->exists()) {
+            $fail($attribute.' is registered.');
+        }
+    }],
         'level' => 'required',
         'email' => 'required|unique:users,email',
         'password' => ['required', 'min:8', 'max:12'],
@@ -63,7 +70,7 @@ public function destroy($id)
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect('/admin')->with('update_success', 'Data Berhasil Ditambahkan');
+        return redirect('/admin')->with('success', 'Data Berhasil Ditambahkan');
         // Redirect dengan pesan sukses
         //return redirect('/admin')->with('update_success', 'Data Berhasil Ditambahkan');
    
@@ -79,29 +86,6 @@ public function destroy($id)
     return view('edit.edit_admin', compact('admin'));
 }
 
-   public function update1(Request $request, $id)
-{
-    $admin = User::find($id);
-
-    $request->validate([
-        'name' => ['required', 'min:3', 'max:30'],
-        'level' => 'required',
-        'email' => 'required|email|unique:users,email,' . $admin->id,
-        'password' => ['required', 'min:8', 'max:12'],
-    ]);
-
-    $data = [
-        'name' => $request->name,
-        'level' => $request->level,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-    ];
-
-    $admin->update($data);
-
-    return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
-    
-}
 public function update(Request $request, $id)
     {
           // Ambil data pengguna yang akan diupdate
@@ -127,5 +111,40 @@ public function update(Request $request, $id)
         // Redirect ke halaman daftar pengguna dengan pesan sukses
         return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
 }
+ public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::where('name', 'LIKE', "%$query%")
+                    ->where('level', 'admin')
+                    ->get();
+
+        return view('halaman.admin', ['users' => $users]);
+    }
+
+
+
+    public function deleteSelected(Request $request)
+    {
+        try {
+            // Ambil ID guru yang dipilih dari request
+            $selectedIds = $request->input('id');
+    
+            // Hapus data guru secara permanen dari database
+            $deleted = User::whereIn('id', $selectedIds)->forceDelete();
+    
+            if ($deleted) {
+                // Kirim respons jika berhasil menghapus
+                return response()->json(['success' => true, 'message' => 'Berhasil menghapus data guru yang dipilih secara permanen.']);
+            } else {
+                // Kirim respons jika gagal menghapus
+                return response()->json(['success' => false, 'message' => 'Gagal menghapus data guru yang dipilih.']);
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika terjadi
+            return response()->json(['success' => false, 'message' => 'Gagal menghapus data guru yang dipilih. Silakan coba lagi.']);
+        }
+    }
+    
 
 }

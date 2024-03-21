@@ -11,13 +11,11 @@ class GuruuController extends Controller
 {
     public function guruu(Request $request)
     {
-        // Mengambil semua data user dengan level admin
-        $users = User::where('level', 'guru')->get();
+        $search = $request->search; 
+        $users = User::where('level', 'guru')->paginate(10);
 
-        // Meneruskan data ke tampilan
         return view('halaman.guruu', compact('users'));
     }
-
 public function destroy($id)
 {
     try {
@@ -87,19 +85,33 @@ public function update(Request $request, $id)
         'name' => ['required', 'min:3', 'max:30'],
         'level' => 'required',
         'email' => 'required|email|unique:users,email,' . $guruu->id,
-        'password' => ['required', 'min:8', 'max:12'],
+        'password' => ['nullable', 'min:8', 'max:12'], // Mengubah menjadi nullable
     ]);
 
     $data = [
         'name' => $request->name,
         'level' => $request->level,
         'email' => $request->email,
-        'password' => bcrypt($request->password),
     ];
+
+    // Menambahkan password ke data hanya jika ada input password
+    if ($request->filled('password')) {
+        $data['password'] = bcrypt($request->password);
+    }
 
     $guruu->update($data);
 
     return redirect('/guruu')->with('update_success', 'Data Berhasil Diupdate');
-    
 }
+
+ public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $users = User::where('name', 'LIKE', "%$query%")
+                    ->where('level', 'guru')
+                    ->paginate(10);
+
+        return view('halaman.guruu', ['users' => $users]);
+    }
 }

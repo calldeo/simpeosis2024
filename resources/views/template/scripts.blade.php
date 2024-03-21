@@ -16,3 +16,35 @@
 	<script src="{{asset('dash/js/deznav-init.js')}}"></script>
     <script src="{{asset('dash/js/demo.js')}}"></script>
     <script src="{{asset('dash/js/styleSwitcher.js')}}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script>
+    function redirectToAdmin() {
+        // Ganti URL dengan URL halaman admin yang diinginkan
+        window.location.href = "/admin";
+    }
+	</script>
+    <script>
+    function redirectToGuruu() {
+        // Ganti URL dengan URL halaman admin yang diinginkan
+        window.location.href = "/guruu";
+    }
+	</script>
+    <script>
+    function redirectToSiswa() {
+        // Ganti URL dengan URL halaman admin yang diinginkan
+        window.location.href = "/siswaa";
+    }
+	</script>
+	
+<script>
+    $(document).ready(function() {
+        // Submit form on input change
+        $('#searchInput').on('input', function() {
+            $('#searchForm').submit();
+        });
+
+        $('.delete-btn').click(function() {
+            // Your existing delete button click event handler
+        });
+    });
+</script>
