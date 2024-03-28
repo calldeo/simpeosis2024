@@ -87,29 +87,30 @@ public function destroy($id)
 }
 
 public function update(Request $request, $id)
-    {
-          // Ambil data pengguna yang akan diupdate
-        $admin = User::findOrFail($id);
-        // Validasi data yang diterima dari form
-       $request->validate([
+{
+   $admin = User::find($id);
+
+    $request->validate([
         'name' => ['required', 'min:3', 'max:30'],
         'level' => 'required',
-        'email' => 'required|email|unique:users,email,' . $admin->id,
-        'password' => ['nullable', 'min:8', 'max:12'],
+        'email' => 'required|email|unique:users,email,' .$admin->id,
+        'password' => ['nullable', 'min:8', 'max:12'], // Mengubah menjadi nullable
     ]);
 
+    $data = [
+        'name' => $request->name,
+        'level' => $request->level,
+        'email' => $request->email,
+    ];
 
-        // Update data pengguna
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        if ($request->filled('password')) {
-            $admin->password = Hash::make($request->password);
-        }
-        $admin ->level = $request->level;
-        $admin->save();
+    // Menambahkan password ke data hanya jika ada input password
+    if ($request->filled('password')) {
+        $data['password'] = bcrypt($request->password);
+    }
 
-        // Redirect ke halaman daftar pengguna dengan pesan sukses
-        return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
+   $admin->update($data);
+
+    return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
 }
  public function search(Request $request)
     {

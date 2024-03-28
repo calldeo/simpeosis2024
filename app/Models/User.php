@@ -32,6 +32,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'level',
+        'kelas',
         'email',
         'password',
     ];
@@ -55,13 +56,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pelanggaran()
-    {
-        return $this->hasMany(Pelanggaran::class, 'id');
-    }
-
-    public function penghargaan()
-    {
-        return $this->hasMany(Penghargaan::class, 'id');
-    }
+   
 }

@@ -48,9 +48,33 @@
                                         <!-- Tidak perlu tombol submit -->
                                     </form>
                                 </div>
-                                <button type="button" class="btn btn-warning" title="Import">
-                                    <i class="fa fa-upload"></i>
-                                </button>
+<button type="button" class="btn btn-warning ml-2" title="Import" data-toggle="modal" data-target="#importModal">
+    <i class="fa fa-upload"></i> 
+</button>
+<!-- Modal untuk impor data guru -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data Siswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk mengunggah file Excel -->
+                <form action="{{ route('import-siswa') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="file">Pilih File Excel</label>
+                        <input type="file" class="form-control-file" id="file" name="file" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                                 <a href="/add_siswaa" class="btn btn-success" title="Add">
                                     <i class="fa fa-plus"></i>
                                 </a>
@@ -90,6 +114,7 @@
                                             </th>
                                             <th style="text-align: center;"><strong>Name</strong></th>
                                             <th style="text-align: center;"><strong>Email</strong></th>
+                                            <th style="text-align: center;"><strong>Kelas</strong></th>
                                             <th style="text-align: center;"><strong>Status</strong></th>
                                             <th style="text-align: center;"><strong>Option</strong></th>
                                         </tr>
@@ -107,6 +132,7 @@
                                             <td class="text-center">{{$g->name}}</td>
                                             <td class="text-center">{{$g->email}}</td>
                                             <td class="text-center">{{$g->level}}</td>
+                                            <td class="text-center">{{$g->kelas}}</td>
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
                                                 <form id="editForm_{{ $g->id }}" action="/siswaa/{{ $g->id }}/edit_siswaa" method="GET">

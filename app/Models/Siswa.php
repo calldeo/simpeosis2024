@@ -46,15 +46,7 @@ class Siswa extends Authenticatable
         'api_token',
 
     ];
-    public function pelanggaran()
-    {
-        return $this->hasMany(Pelanggaran::class, 'id_siswa');
-    }
-
-    public function penghargaan()
-    {
-        return $this->hasMany(Penghargaan::class, 'id_siswa');
-    }
+   
     protected $hidden = [
         // 'password',
         // 'remember_token',

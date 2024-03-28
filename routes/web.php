@@ -68,8 +68,7 @@ Route::post('/admin/store',[AdminController::class,'store']);
 Route::get('/admin/{id}/edit_admin  ',[AdminController::class,'edit']);
 Route::put('/admin/{id}',[AdminController::class,'update']);
 
-
-
+Route::post('/importguru', [GuruuController::class, 'guruimportexcel'])->name('import-guru');
 route::get('/guruu/search',[GuruuController::class,'search'])->name('guruu.search');
 route::get('/guruu',[GuruuController::class,'guruu'])->name('guruu');
 Route::delete('/guruu/{id}', [GuruuController::class,'destroy'])->name('guruu.destroy');
@@ -79,7 +78,7 @@ Route::get('/guruu/{id}/edit_guruu  ',[GuruuController::class,'edit']);
 Route::put('/guruu/{id}',[GuruuController::class,'update']);
 
 
-
+Route::post('/importsiswa', [SiswaaController::class, 'siswaimportexcel'])->name('import-siswa');
 route::get('/siswaa/search',[SiswaaController::class,'search'])->name('siswaa.search');
 route::get('/siswaa',[SiswaaController::class,'siswaa'])->name('siswaa');
 Route::delete('/siswaa/{id}', [SiswaaController::class,'destroy'])->name('siswaa.destroy');

@@ -42,15 +42,41 @@
                             <h4 class="card-title">Data Guru</h4>
                             <div class="text-right">
                                 <div class="input-group search-area right d-lg-inline-flex d-none">
-                                    <form id="searchForm" action="{{ route('guruu.search') }}" method="GET">
+                                    <form id="searchForm"  method="GET">
                                         <input id="searchInput" type="text" class="form-control"
                                             placeholder="Find something here..." name="query">
                                         <!-- Tidak perlu tombol submit -->
                                     </form>
                                 </div>
-                                <button type="button" class="btn btn-warning" title="Import">
-                                    <i class="fa fa-upload"></i>
-                                </button>
+                              <!-- Tombol untuk membuka modal impor data guru -->
+<button type="button" class="btn btn-warning ml-2" title="Import" data-toggle="modal" data-target="#importModal">
+    <i class="fa fa-upload"></i> 
+</button>
+<!-- Modal untuk impor data guru -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import Data Guru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk mengunggah file Excel -->
+                <form action="{{ route('import-guru') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="file">Pilih File Excel</label>
+                        <input type="file" class="form-control-file" id="file" name="file" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
                                 <a href="/add_guruu" class="btn btn-success" title="Add">
                                     <i class="fa fa-plus"></i>
                                 </a>
@@ -69,7 +95,7 @@
                                 <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
                             </div>
                             @endif
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="uptTable">
                                 <table class="table table-responsive-md">
                                     <thead>
                                         <tr>
@@ -178,3 +204,5 @@
     });
 });
     </script>
+</body>
+</html>

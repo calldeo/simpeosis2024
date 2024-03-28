@@ -14,6 +14,7 @@
 	<script src="{{asset('dash/vendor/owl-carousel/owl.carousel.js')}}"></script>
     <script src="{{asset('dash/js/custom.min.js')}}"></script>
 	<script src="{{asset('dash/js/deznav-init.js')}}"></script>
+    <script src="{{asset('dash/js/search.js')}}"></script>
     <script src="{{asset('dash/js/demo.js')}}"></script>
     <script src="{{asset('dash/js/styleSwitcher.js')}}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -36,7 +37,7 @@
     }
 	</script>
 	
-<script>
+{{-- <script>
     $(document).ready(function() {
         // Submit form on input change
         $('#searchInput').on('input', function() {
@@ -47,4 +48,4 @@
             // Your existing delete button click event handler
         });
     });
-</script>
+</script> --}}

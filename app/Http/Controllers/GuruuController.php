@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DB;
+use App\Imports\UserImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class GuruuController extends Controller
@@ -113,5 +115,19 @@ public function update(Request $request, $id)
                     ->paginate(10);
 
         return view('halaman.guruu', ['users' => $users]);
+    }
+
+
+    public function guruimportexcel(Request $request) {
+
+        // DB::table('users')->where('level','guru')->delete();
+        User::query()->where('level','guru')->delete();
+        $file=$request->file('file');
+        $namafile = $file->getClientOriginalName();
+        $file->move('DataGuru', $namafile);
+
+        Excel::import(new UserImport, public_path('/DataGuru/'.$namafile));
+        return redirect('/guruu')->with('success', 'Data Berhasil Ditambahkan');
+        
     }
 }

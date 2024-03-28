@@ -79,7 +79,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Edit Data Admin</h4>
+                                <h4 class="card-title">Edit Data Siswa</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -120,13 +120,22 @@
                             </div>
                              <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password makan tidak perlu diisi </label>
                         </div>
+                         <div class="form-group">
+                                    <label class="text-label">Kelas*</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="val-username1" name="kelas" value="{{ $siswaa->kelas }}" placeholder="Enter a class.." required>
+                                    </div>
+                                </div>
                         <div class="form-group">
                             <label>Select list (select one): *</label>
                             <select class="form-control default-select" id="sel1" name="level" required>
                                 <option value="">--PILIH LEVEL--</option>
                                 {{-- <option value="admin">Admin</option> --}}
-                               <option value="guru">Guru</option>
-                                {{-- <option value="siswa">Siswa</option> --}} --}}
+                               {{-- <option value="guru">Guru</option> --}}
+                                <option value="siswa">Siswa</option> 
                             </select>
                         </div>
                         <div class="form-group">

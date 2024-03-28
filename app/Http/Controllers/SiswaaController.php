@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DB;
-
+use App\Imports\UserImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaaController extends Controller
 {
@@ -114,5 +115,18 @@ public function search(Request $request)
                     ->paginate(10);
 
         return view('halaman.siswaa', ['users' => $users]);
+    }
+
+     public function siswaimportexcel(Request $request) {
+
+        // DB::table('users')->where('level','guru')->delete();
+        User::query()->where('level','siswa')->delete();
+        $file=$request->file('file');
+        $namafile = $file->getClientOriginalName();
+        $file->move('DataSiswa', $namafile);
+
+        Excel::import(new UserImport, public_path('/DataSiswa/'.$namafile));
+        return redirect('/siswaa')->with('success', 'Data Berhasil Ditambahkan');
+        
     }
 }
