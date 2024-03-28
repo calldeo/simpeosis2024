@@ -120,15 +120,6 @@
                             </div>
                              <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password makan tidak perlu diisi </label>
                         </div>
-                         <div class="form-group">
-                                    <label class="text-label">Kelas*</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                        </div>
-                                        <input type="text" class="form-control" id="val-username1" name="kelas" value="{{ $siswaa->kelas }}" placeholder="Enter a class.." required>
-                                    </div>
-                                </div>
                         <div class="form-group">
                             <label>Select list (select one): *</label>
                             <select class="form-control default-select" id="sel1" name="level" required>
@@ -138,6 +129,44 @@
                                 <option value="siswa">Siswa</option> 
                             </select>
                         </div>
+                         <div class="form-group">
+                            <label>Kelas: *</label>
+                            <select class="form-control default-select" id="sel" name="kelas" >
+                                <option value="">--PILIH KELAS--</option>
+                                {{-- <option value="admin">Admin</option>
+                                <option value="guru">Guru</option> --}}
+                                <option  value="X KI1">X BFI</option>
+                                <option  value="X KI1">X DKV1</option>
+                                <option  value="X KI1">X DKV2</option>
+                                <option  value="X KI1">X PG</option>
+                                <option  value="X KI1">X DKV</option>
+                                <option  value="X KI1">X KI1</option>
+                                <option  value="X KI2">X KI2</option>
+                                <option  value="X MM1">X MM1</option>
+                                <option  value="X MM2">X MM2</option>
+                                <option  value="X MM3">X MM3</option>
+                                <option  value="X RPL1">X RPL1</option>
+                                <option  value="X RPL2">X RPL2</option>
+                                <option  value="XI KI1">XI KI1</option>
+                                <option  value="XI KI2">XI KI2</option>
+                                <option  value="XI MM1">XI MM1</option>
+                                <option  value="XI MM2">XI MM2</option>
+                                <option  value="XI MM3">XI MM3</option>
+                                <option  value="XI RPL1">XI RPL1</option>
+                                <option  value="XI RPL2">XI RPL2</option>
+                                <option  value="XII KI1">XII KI1</option>
+                                <option  value="XII KI2">XII KI2</option>
+                                <option  value="XII MM1">XII MM1</option>
+                                <option  value="XII MM2">XII MM2</option>
+                                <option  value="XII MM3">XII MM3</option>
+                                <option  value="XII RPL1">XII RPL1</option>
+                                <option  value="XII RPL2">XII RPL2</option>
+                            </select>
+                              @error('kelas')
+                                <span class="mt-4 text-danger">{{$message}}</span>
+                                @enderror
+                        </div>
+                        
                         <div class="form-group">
                             <div class="form-check">
                                 <input id="checkbox1" class="form-check-input" type="checkbox" required>

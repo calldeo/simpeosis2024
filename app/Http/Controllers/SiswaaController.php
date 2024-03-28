@@ -13,7 +13,9 @@ class SiswaaController extends Controller
     public function siswaa(Request $request)
     {
         // Mengambil semua data user dengan level admin
-        $users = User::where('level', 'siswa')->paginate(10);
+         $users = User::where('level', 'siswa')
+                 ->orderBy('name', 'ASC')
+                 ->paginate(10);
 
         // Meneruskan data ke tampilan
         return view('halaman.siswaa', compact('users'));
@@ -47,21 +49,23 @@ public function destroy($id)
     $request->validate([
         'name' => ['required', 'min:3', 'max:30'],
         'level' => 'required',
+        'kelas' => 'required',
         'email' => 'required|unique:users,email',
         'password' => ['required', 'min:8', 'max:12'],
     ]);
 
 
         $user = User::where('name', $request->name)->orWhere('email', $request->email)->first();
-        if ($user) {
-            // Jika nama atau email sudah digunakan, tampilkan pesan kesalahan
-            return back()->withInput()->with('error', 'Nama atau email sudah digunakan.');
-        }
+        // if ($user) {
+        //     // Jika nama atau email sudah digunakan, tampilkan pesan kesalahan
+        //     return back()->withInput()->with('error', 'Nama atau email sudah digunakan.');
+        // }
 
         DB::table('users')->insert([
             'name' => $request->name,
             'level' => $request->level,
             'email' => $request->email,
+            'kelas' => $request->kelas,
             'password' => bcrypt($request->password),
         ]);
 
@@ -87,6 +91,7 @@ public function update(Request $request, $id)
     $request->validate([
         'name' => ['required', 'min:3', 'max:30'],
         'level' => 'required',
+        'kelas' => 'nullable',
         'email' => 'required|email|unique:users,email,' . $siswaa->id,
         'password' => ['nullable', 'min:8', 'max:12'], // Mengubah menjadi nullable
     ]);
@@ -95,6 +100,7 @@ public function update(Request $request, $id)
         'name' => $request->name,
         'level' => $request->level,
         'email' => $request->email,
+        // 'kelas' => $request->kelas,
     ];
 
     // Menambahkan password ke data hanya jika ada input password
@@ -117,16 +123,20 @@ public function search(Request $request)
         return view('halaman.siswaa', ['users' => $users]);
     }
 
-     public function siswaimportexcel(Request $request) {
+   public function siswaimportexcel(Request $request) {
+    // Menghapus semua data siswa dari database secara permanen
+    User::query()->where('level','siswa')->forceDelete();
 
-        // DB::table('users')->where('level','guru')->delete();
-        User::query()->where('level','siswa')->delete();
-        $file=$request->file('file');
-        $namafile = $file->getClientOriginalName();
-        $file->move('DataSiswa', $namafile);
+    // Memproses file Excel yang diunggah
+    $file = $request->file('file');
+    $namafile = $file->getClientOriginalName();
+    $file->move('DataSiswa', $namafile);
 
-        Excel::import(new UserImport, public_path('/DataSiswa/'.$namafile));
-        return redirect('/siswaa')->with('success', 'Data Berhasil Ditambahkan');
-        
-    }
+    // Melakukan impor data dari file Excel yang baru
+    Excel::import(new UserImport, public_path('/DataSiswa/'.$namafile));
+
+    // Redirect ke halaman siswaa dengan pesan sukses
+    return redirect('/siswaa')->with('success', 'Data Berhasil Ditambahkan');
+}
+
 }

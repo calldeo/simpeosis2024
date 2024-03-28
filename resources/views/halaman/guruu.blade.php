@@ -42,7 +42,7 @@
                             <h4 class="card-title">Data Guru</h4>
                             <div class="text-right">
                                 <div class="input-group search-area right d-lg-inline-flex d-none">
-                                    <form id="searchForm"  method="GET">
+                                   <form id="searchForm" action="{{ route('guruu.search') }}" method="GET">
                                         <input id="searchInput" type="text" class="form-control"
                                             placeholder="Find something here..." name="query">
                                         <!-- Tidak perlu tombol submit -->

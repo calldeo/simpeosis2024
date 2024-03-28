@@ -43,7 +43,7 @@
                             <h4 class="card-title">Data Admin</h4>
                             <div class="text-right">
                           <div class="input-group search-area right d-lg-inline-flex d-none">
-                                    <form id="searchForm" action="{{ route('admin.search') }}" method="GET">
+                                  <form id="searchForm" action="{{ route('admin.search') }}" method="GET">
                                         <input id="searchInput" type="text" class="form-control" placeholder="Find something here..." name="query">
                                         <!-- Tidak perlu tombol submit -->
                                     </form>
@@ -76,7 +76,7 @@
                                 <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
                             </div>
                             @endif
-                            <div class="table-responsive">
+                            <div class="table-responsive"  id="uptTable">
                                 <table class="table table-responsive-md">
                                     <thead>
                                         <tr>

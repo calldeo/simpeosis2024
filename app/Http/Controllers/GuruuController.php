@@ -14,7 +14,9 @@ class GuruuController extends Controller
     public function guruu(Request $request)
     {
         $search = $request->search; 
-        $users = User::where('level', 'guru')->paginate(10);
+        $users = User::where('level', 'guru')
+          ->orderBy('name', 'ASC')
+        ->paginate(10);
 
         return view('halaman.guruu', compact('users'));
     }

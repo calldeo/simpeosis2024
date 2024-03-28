@@ -13,7 +13,7 @@ class AdminController extends Controller
         $search=$request->search; 
         $users = User::where('name','LIKE','%'.$request->search.'%')->Paginate(10);
         // Mengambil semua data user dengan level admin
-        $users = User::where('level', 'admin')->paginate(10);
+        $users = User::where('level', 'admin')->paginate(10)  ->orderBy('name', 'ASC');
 
         // Meneruskan data ke tampilan
         return view('halaman.admin', compact('users'));

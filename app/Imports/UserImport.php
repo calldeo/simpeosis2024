@@ -21,8 +21,9 @@ class UserImport implements ToModel
             'id'=> $row[0],
             'name'=> $row[1],
             'level'=> $row[2],
-            'email'=> $row[3],
-            'password'=>bcrypt($row[4]),
+            'kelas'=> $row[3],
+            'email'=> $row[4],
+            'password'=>bcrypt($row[5]),
             // 'updated_at'=>$row[6],
             // 'created_at'=>$row[7],
 

@@ -22,14 +22,22 @@ class UserSeeder extends Seeder
             'name' =>'Deo andreas',
             'level' =>'admin',
             'email' =>'deo1@gmail.com',
-            'password' =>bcrypt('admin'),
+            'password' =>bcrypt('admin12345'),
             'remember_token' =>Str::random(60),
         ]);
         User:: create([
             'name' =>'Muhammad Rayhan',
             'level' =>'guru',
             'email' =>'rayhan1@gmail.com',
-            'password' =>bcrypt('guru'),
+            'password' =>bcrypt('guru12345'),
+            'remember_token' =>Str::random(60),
+        ]);
+        User:: create([
+            'name' =>'Muhammad',
+            'level' =>'siswa',
+            'kelas' => 'X BFI',
+            'email' =>'gutu1@gmail.com',
+            'password' =>bcrypt('guru12345'),
             'remember_token' =>Str::random(60),
         ]);
 
