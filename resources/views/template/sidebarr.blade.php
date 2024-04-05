@@ -20,28 +20,52 @@
 						</ul>
 
                     </li>
+					 <li><a  href="/vote" aria-expanded="false">
+							<i class="flaticon-077-menu-1"></i>
+							<span class="nav-text">Vote</span>
+						</a>
+                       
+                    </li>
 					<li class="nav-label first">Main Menu</li>
                     <li><a  href="/admin" aria-expanded="false">
-							<i class="flaticon-077-menu-1"></i>
+							<i class="flaticon-044-file"></i>
 							<span class="nav-text">Data Admin</span>
 						</a>
                        
                     </li>
 					  <li><a  href="/guruu" aria-expanded="false">
-							<i class="flaticon-077-menu-1"></i>
+							<i class="flaticon-044-file"></i>
 							<span class="nav-text">Data Guru</span>
 						</a>
                        
                     </li>
 					<li><a  href="/siswaa" aria-expanded="false">
-							<i class="flaticon-077-menu-1"></i>
+							<i class="flaticon-044-file"></i>
 							<span class="nav-text">Data Siswa</span>
 						</a>
                        
                     </li>
 					<li><a  href="/calonosis" aria-expanded="false">
-							<i class="flaticon-077-menu-1"></i>
+							<i class="flaticon-044-file"></i>
 							<span class="nav-text">Data Calon OSIS</span>
+						</a>
+                       
+                    </li>
+					<li><a  href="/datapoling" aria-expanded="false">
+							<i class="flaticon-053-heart"></i>
+							<span class="nav-text">Data Polling</span>
+						</a>
+                       
+                    </li>
+					<li><a  href="/datavote" aria-expanded="false">
+							<i class="flaticon-381-network"></i>
+							<span class="nav-text">Data Voted</span>
+						</a>
+                       
+                    </li>
+					<li><a  href="/setting" aria-expanded="false">
+							<i class="flaticon-381-settings-2"></i>
+							<span class="nav-text">Setting Tanggal</span>
 						</a>
                        
                     </li>
