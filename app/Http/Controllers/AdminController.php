@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DB;
-
+use App\Models\SettingWaktu;
+use Carbon\Carbon;
 class AdminController extends Controller
 {
     public function admin(Request $request)
@@ -13,10 +14,18 @@ class AdminController extends Controller
         $search=$request->search; 
         $users = User::where('name','LIKE','%'.$request->search.'%')->Paginate(10);
         // Mengambil semua data user dengan level admin
-        $users = User::where('level', 'admin')->paginate(10)  ->orderBy('name', 'ASC');
+        $users = User::where('level', 'admin')->paginate(10);
+        $settings = SettingWaktu::all();
 
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
         // Meneruskan data ke tampilan
-        return view('halaman.admin', compact('users'));
+        return view('halaman.admin', compact('users','expired','settings'));
     }
 
 public function destroy($id)
@@ -39,7 +48,17 @@ public function destroy($id)
 
     public function add_admin()
     {
-        return view('tambah.add_admin');
+               $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+
+    return view('tambah.add_admin', compact('settings', 'expired'));
     }
 
     public function store(Request $request)
@@ -63,7 +82,7 @@ public function destroy($id)
             return back()->withInput()->with('error', 'Nama atau email sudah digunakan.');
         }
 
-        DB::table('users')->insert([
+        User::create([
             'name' => $request->name,
             'level' => $request->level,
             'email' => $request->email,
@@ -80,10 +99,21 @@ public function destroy($id)
 
    public function edit($id)
 {
-    $admin = User::find($id);
+      $admin = User::find($id);
     // Jangan mengirimkan password ke tampilan
     unset($admin->password);
-    return view('edit.edit_admin', compact('admin'));
+    // return view('edit.edit_guruu', compact('guruu'));
+         $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+
+    return view('edit.edit_admin', compact('settings', 'expired','admin'));
 }
 
 public function update(Request $request, $id)
@@ -112,16 +142,45 @@ public function update(Request $request, $id)
 
     return redirect('/admin')->with('update_success', 'Data Berhasil Diupdate');
 }
- public function search(Request $request)
+    public function search(Request $request)
     {
-        $query = $request->input('query');
+          $settings = SettingWaktu::all();
 
-        $users = User::where('name', 'LIKE', "%$query%")
-                    ->where('level', 'admin')
-                    ->get();
-
-        return view('halaman.admin', ['users' => $users]);
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
     }
+        // Dapatkan input pencarian
+        $searchTerm = $request->input('search');
+
+        // Lakukan pencarian hanya jika input tidak kosong
+        if (!empty($searchTerm)) {
+            // Validasi input
+            $request->validate([
+                'search' => 'string', // Sesuaikan aturan validasi sesuai kebutuhan Anda
+            ]);
+
+            // Lakukan pencarian dengan mempertimbangkan validasi input, level 'admin', dan status_pemilihan
+            $users = User::where('level', 'admin')
+                        ->where(function ($query) use ($searchTerm) {
+                            $query->where('name', 'like', "%{$searchTerm}%")
+                                ->orWhere('status_pemilihan', 'like', "%{$searchTerm}%"); // Ubah sesuai dengan tipe data status_pemilihan
+                        })
+                        ->get();
+        } else {
+            // Jika input kosong, ambil semua data user dengan level 'admin'
+            $users = User::where('level', 'admin')->get();
+        }
+
+        // Memberikan respons berdasarkan hasil pencarian
+        return response()->json($users);
+    }
+
+
+
 
 
 

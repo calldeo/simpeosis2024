@@ -16,6 +16,8 @@
 	<script src="{{asset('dash/js/deznav-init.js')}}"></script>
     <script src="{{asset('dash/js/search.js')}}"></script>
     <script src="{{asset('dash/js/demo.js')}}"></script>
+    <script src="{{asset('dash/vendor/ckeditor/ckeditor.js')}}"></script>
+
     <script src="{{asset('dash/js/styleSwitcher.js')}}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script>

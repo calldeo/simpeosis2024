@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Calon OSIS Baru</title>
     @include('template.headerr')
+    <script src="/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: 'textarea', // Select all textareas
+            plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste code help wordcount',
+            toolbar: 'undo redo | formatselect | ' +
+                     'bold italic backcolor | alignleft aligncenter ' +
+                     'alignright alignjustify | bullist numlist outdent indent | ' +
+                     'removeformat | help',
+            menubar: 'file edit view insert format tools table help',
+        });
+    </script>
 </head>
 
 <body>
@@ -47,13 +60,31 @@
                         <div class="card-body">
                             <form action="/osis/store" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Nama Calon (Ketua Osis/Wakil Ketua Osis) *</label>
+                                        <input type="text" class="form-control" id="nama_calon" name="nama_calon" placeholder="Masukkan Nama Calon" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Periode *</label>
+                                        <input type="text" class="form-control" id="periode" name="periode" placeholder="Masukkan Periode" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>NIS (Ketua Osis/Wakil Ketua Osis) *</label>
+                                        <input type="text" class="form-control" id="NIS" name="NIS" placeholder="Masukkan NIS" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Kelas (Ketua Osis/Wakil Ketua Osis) *</label>
+                                        <input type="text" class="form-control" id="kelas" name="kelas" placeholder="Masukkan kelas" required>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <label for="nama_calon">Nama Calon</label>
-                                    <input type="text" class="form-control" id="nama_calon" name="nama_calon" placeholder="Nama Calon">
+                                    <label for="nama_calon">Slogan *</label>
+                                    <input type="text" class="form-control" id="slogan" name="slogan" placeholder="Nama Calon">
                                 </div>
                                 <div class="form-group">
                                     <label for="visimisi">Visi Misi</label>
-                                    <textarea class="form-control" id="visimisi" name="visimisi" rows="3" placeholder="Visi Misi"></textarea>
+                                    <textarea class="form-control" rows="8" cols="80"  id="visimisi" name="visimisi" rows="3" placeholder="Visi Misi"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="gambar">Gambar</label>

@@ -9,6 +9,7 @@
 	<meta property="og:title" content="Zenix - Crypto Admin Dashboard">
 	<meta property="og:description" content="Zenix - Crypto Admin Dashboard">
 	<meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="format-detection" content="telephone=no">
     <title>E-vote | {{auth()->user()->level}} Dashboard </title>
     <!-- Favicon icon -->

@@ -52,12 +52,30 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="/calonosis/{{ $calon->id_calon }}" method="POST" enctype="multipart/form-data">
+                                <form action="/calonosis/{{ $calon->id }}" method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Nama Calon *</label>
+                                            <input type="text" class="form-control" name="nama_calon" value="{{ $calon->nama_calon }}" placeholder="Masukkan Nama Calon" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Periode</label>
+                                            <input type="text" class="form-control" name="periode" value="{{ $calon->periode }}" placeholder="Masukkan Periode" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>NIS *</label>
+                                            <input type="text" class="form-control" name="NIS" value="{{ $calon->NIS }}" placeholder="Masukkan NIS" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Kelas</label>
+                                            <input type="text" class="form-control" name="kelas" value="{{ $calon->kelas }}" placeholder="Masukkan kelas" required>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                        <label class="text-label">Nama Calon *</label>
-                                        <input type="text" class="form-control" name="nama_calon" value="{{ $calon->nama_calon }}" placeholder="Masukkan Nama Calon" required>
+                                        <label class="text-label">Slogan *</label>
+                                        <input type="text" class="form-control" name="slogan" value="{{ $calon->slogan }}" placeholder="Masukkan Slogan" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="text-label">Visi Misi *</label>

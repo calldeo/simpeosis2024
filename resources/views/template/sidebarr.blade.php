@@ -8,24 +8,34 @@
 					<h5 class="name"><span class="font-w400">Hello,</span>{{auth()->user()->name}}</h5>
 					<p class="email"><a href="" class="__cf_email__" data-cfemail="95f8f4e7e4e0f0efefefefd5f8f4fcf9bbf6faf8">{{auth()->user()->email}}</a></p>
 				</div>
+				
 				<ul class="metismenu" id="menu">
+					@if (auth()->user()->level=="guru"|| auth()->user()->level == "admin"|| auth()->user()->level == "siswa")
 					<li class="nav-label first"></li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-144-layout"></i>
-							<span class="nav-text">Dashboard</span>
+							<span class="nav-text" >Home</span>
 						</a>
+						<ul aria-expanded="false">
+							<li><a href="/home">Dashboard</a></li>
+							
+						</ul>
                         <ul aria-expanded="false">
 							<li><a href="/home">Petunjuk Pengunaan</a></li>
 							
 						</ul>
 
                     </li>
+					@if(!$expired)
 					 <li><a  href="/vote" aria-expanded="false">
 							<i class="flaticon-077-menu-1"></i>
 							<span class="nav-text">Vote</span>
 						</a>
                        
                     </li>
+					@endif
+				@endif
+				@if ( auth()->user()->level == "admin")
 					<li class="nav-label first">Main Menu</li>
                     <li><a  href="/admin" aria-expanded="false">
 							<i class="flaticon-044-file"></i>
@@ -57,7 +67,7 @@
 						</a>
                        
                     </li>
-					<li><a  href="/datavote" aria-expanded="false">
+					<li><a  href="/datavoted" aria-expanded="false">
 							<i class="flaticon-381-network"></i>
 							<span class="nav-text">Data Voted</span>
 						</a>
@@ -69,6 +79,7 @@
 						</a>
                        
                     </li>
+				@endif
                 </ul>
 				<div class="copyright">
 					<p><strong>E-Vote </strong> © 2024 All Rights Reserved</p>

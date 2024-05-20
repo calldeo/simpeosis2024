@@ -10,7 +10,7 @@
         <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
-        <title>Login - Si-Beka</title>
+        <title>Login - E-vote</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{asset('dashboards/dist/css/app.css')}}" />
         <!-- END: CSS Assets-->
@@ -23,7 +23,7 @@
                 <div class="hidden xl:flex flex-col min-h-screen">
                     <a href="" class="-intro-x flex items-center pt-5">
                         <img alt="Midone - HTML Admin Template" class="w-6" src="{{asset('dashboards/dist/images/logo.svg')}}">
-                        <span class="text-white text-lg ml-3"> Si-Beka </span> 
+                        <span class="text-white text-lg ml-3"> E-vote</span> 
                     </a>
                     <div class="my-auto">
                         <img alt="Midone - HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="{{asset('dashboards/dist/images/illustration.svg')}}">
@@ -61,7 +61,7 @@
                             
                         </div>
                         
-                        <div class="intro-x mt-10 xl:mt-24 text-slate-600 dark:text-slate-500 text-center xl:text-left"> Login or  <a class="text-primary dark:text-slate-200" href="/">Return Home</a> </div>
+                        {{-- <div class="intro-x mt-10 xl:mt-24 text-slate-600 dark:text-slate-500 text-center xl:text-left"> Login or  <a class="text-primary dark:text-slate-200" href="/">Return Home</a> </div> --}}
                     </div>
                 </form>
                 </div>

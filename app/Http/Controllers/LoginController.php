@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class LoginController extends Controller
 {
   public function landing(){
-    return view('landing');
+    return view('sigin.logins');
   }
     public function halamanlogin(){
         return view('sigin.logins');

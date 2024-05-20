@@ -4,22 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Imports\UserImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\SettingWaktu;
+use Carbon\Carbon;
 
 class SiswaaController extends Controller
 {
     public function siswaa(Request $request)
     {
-        // Mengambil semua data user dengan level admin
-         $users = User::where('level', 'siswa')
-                 ->orderBy('name', 'ASC')
-                 ->paginate(10);
+        // Mengambil semua data user dengan level siswa
+        $search = $request->search; 
+        $users = User::where('level', 'siswa')->paginate(10);
+$settings = SettingWaktu::all();
 
-        // Meneruskan data ke tampilan
-        return view('halaman.siswaa', compact('users'));
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
     }
+        // Meneruskan data ke tampilan
+        return view('halaman.siswaa', compact('users','expired','settings'));
+}
 
 public function destroy($id)
 {
@@ -41,7 +50,17 @@ public function destroy($id)
 
     public function add_siswaa()
     {
-        return view('tambah.add_siswaa');
+           $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+        // Meneruskan data ke tampilan
+        return view('tambah.add_siswaa', compact('expired','settings'));
     }
 
     public function store(Request $request)
@@ -56,16 +75,16 @@ public function destroy($id)
 
 
         $user = User::where('name', $request->name)->orWhere('email', $request->email)->first();
-        // if ($user) {
-        //     // Jika nama atau email sudah digunakan, tampilkan pesan kesalahan
-        //     return back()->withInput()->with('error', 'Nama atau email sudah digunakan.');
-        // }
+        if ($user) {
+            // Jika nama atau email sudah digunakan, tampilkan pesan kesalahan
+            return back()->withInput()->with('error', 'Nama atau email sudah digunakan.');
+        }
 
         DB::table('users')->insert([
             'name' => $request->name,
             'level' => $request->level,
-            'email' => $request->email,
             'kelas' => $request->kelas,
+            'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
@@ -81,7 +100,17 @@ public function destroy($id)
     $siswaa = User::find($id);
     // Jangan mengirimkan password ke tampilan
     unset($siswaa->password);
-    return view('edit.edit_siswaa', compact('siswaa'));
+  $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+
+    return view('edit.edit_siswaa', compact('settings', 'expired','siswaa'));
 }
 
 public function update(Request $request, $id)
@@ -91,8 +120,8 @@ public function update(Request $request, $id)
     $request->validate([
         'name' => ['required', 'min:3', 'max:30'],
         'level' => 'required',
-        'kelas' => 'nullable',
         'email' => 'required|email|unique:users,email,' . $siswaa->id,
+        'kelas' => 'required',
         'password' => ['nullable', 'min:8', 'max:12'], // Mengubah menjadi nullable
     ]);
 
@@ -100,7 +129,8 @@ public function update(Request $request, $id)
         'name' => $request->name,
         'level' => $request->level,
         'email' => $request->email,
-        // 'kelas' => $request->kelas,
+        'kelas' => $request->kelas,
+        
     ];
 
     // Menambahkan password ke data hanya jika ada input password
@@ -112,31 +142,47 @@ public function update(Request $request, $id)
 
     return redirect('/siswaa')->with('update_success', 'Data Berhasil Diupdate');
 }
-public function search(Request $request)
+    public function search(Request $request)
     {
-        $query = $request->input('query');
+        // Dapatkan input pencarian
+        $searchTerm = $request->input('search');
 
-        $users = User::where('name', 'LIKE', "%$query%")
-                    ->where('level', 'siswa')
-                    ->paginate(10);
+        // Lakukan pencarian hanya jika input tidak kosong
+        if (!empty($searchTerm)) {
+            // Validasi input
+            $request->validate([
+                'search' => 'string', // Sesuaikan aturan validasi sesuai kebutuhan Anda
+            ]);
 
-        return view('halaman.siswaa', ['users' => $users]);
+            // Lakukan pencarian dengan mempertimbangkan validasi input, level 'siswa', dan status_pemilihan
+            $users = User::where('level', 'siswa')
+                        ->where(function ($query) use ($searchTerm) {
+                            $query->where('name', 'like', "%{$searchTerm}%")
+                                ->orWhere('status_pemilihan', 'like', "%{$searchTerm}%"); // Ubah sesuai dengan tipe data status_pemilihan
+                        })
+                        ->get();
+        } else {
+            // Jika input kosong, ambil semua data user dengan level 'siswa'
+            $users = User::where('level', 'siswa')->get();
+        }
+
+        // Memberikan respons berdasarkan hasil pencarian
+        return response()->json($users);
     }
 
-   public function siswaimportexcel(Request $request) {
-    // Menghapus semua data siswa dari database secara permanen
-    User::query()->where('level','siswa')->forceDelete();
-
-    // Memproses file Excel yang diunggah
-    $file = $request->file('file');
-    $namafile = $file->getClientOriginalName();
-    $file->move('DataSiswa', $namafile);
-
-    // Melakukan impor data dari file Excel yang baru
-    Excel::import(new UserImport, public_path('/DataSiswa/'.$namafile));
-
-    // Redirect ke halaman siswaa dengan pesan sukses
-    return redirect('/siswaa')->with('success', 'Data Berhasil Ditambahkan');
-}
-
+    public function siswaimportexcel(Request $request) {
+        // Menghapus semua data siswa dari database secara permanen
+        User::query()->where('level','siswa')->forceDelete();
+    
+        // Memproses file Excel yang diunggah
+        $file = $request->file('file');
+        $namafile = $file->getClientOriginalName();
+        $file->move('DataSiswa', $namafile);
+    
+        // Melakukan impor data dari file Excel yang baru
+        Excel::import(new UserImport, public_path('/DataSiswa/'.$namafile));
+    
+        // Redirect ke halaman siswaa dengan pesan sukses
+        return redirect('/siswaa')->with('success', 'Data Berhasil Ditambahkan');
+    }
 }

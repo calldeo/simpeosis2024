@@ -72,6 +72,12 @@
                             <li class="breadcrumb-item active"><a href="javascript:void(0)">Guru</a></li>
                         </ol>
                     </div>
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error!</strong> {{ session('error') }}
+                                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
+                            </div>
+                            @endif
                 </div>
                 <!-- row -->
                 <div class="row">
@@ -91,9 +97,9 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                                 </div>
-                                                <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name.." required>
+                                                <input type="text" class="form-control" id="val-username1" name="name" placeholder="Enter a name.." value="{{old('name')}}"required>
                                             </div>
-                                             @error('name')
+                                            @error('name')
                                             <span class="mt-4 text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -103,9 +109,9 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                                 </div>
-                                                <input type="text" class="form-control" id="val-username1" name="email" placeholder="Enter a email.." required>
+                                                <input type="text" class="form-control" id="val-username1" name="email" placeholder="Enter a email.."  value="{{old('email')}}" required>
                                             </div>
-                                             @error('email')
+                                            @error('email')
                                             <span class="mt-4 text-danger">{{$message}}</span>
                                             @enderror
                                         </div>

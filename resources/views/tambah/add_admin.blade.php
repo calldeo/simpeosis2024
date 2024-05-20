@@ -73,6 +73,12 @@
                         </ol>
                     </div>
                 </div>
+                  @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Error!</strong> {{ session('error') }}
+                                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span></button>
+                            </div>
+                            @endif
                 <!-- row -->
                 <div class="row">
                 

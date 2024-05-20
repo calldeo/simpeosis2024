@@ -7,18 +7,26 @@ use App\Models\User;
 use DB;
 use App\Imports\UserImport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Models\SettingWaktu;
+use Carbon\Carbon;
 
 class GuruuController extends Controller
 {
     public function guruu(Request $request)
     {
-        $search = $request->search; 
-        $users = User::where('level', 'guru')
-          ->orderBy('name', 'ASC')
-        ->paginate(10);
 
-        return view('halaman.guruu', compact('users'));
+        $users = User::where('level', 'guru')->paginate(10);
+ $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+        // Meneruskan data ke tampilan
+        return view('halaman.guruu', compact('users','expired','settings'));
     }
 public function destroy($id)
 {
@@ -40,7 +48,18 @@ public function destroy($id)
 
     public function add_guruu()
     {
-        return view('tambah.add_guruu');
+        // return view('tambah.add_guruu');
+         $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+        // Meneruskan data ke tampilan
+        return view('tambah.add_guruu', compact('expired','settings'));
     }
 
     public function store(Request $request)
@@ -59,7 +78,7 @@ public function destroy($id)
             return back()->withInput()->with('error', 'Nama atau email sudah digunakan.');
         }
 
-        DB::table('users')->insert([
+       User::create([
             'name' => $request->name,
             'level' => $request->level,
             'email' => $request->email,
@@ -78,7 +97,17 @@ public function destroy($id)
     $guruu = User::find($id);
     // Jangan mengirimkan password ke tampilan
     unset($guruu->password);
-    return view('edit.edit_guruu', compact('guruu'));
+      $settings = SettingWaktu::all();
+
+            $expired = false;
+    foreach ($settings as $setting) {
+        if (Carbon::now()->greaterThanOrEqualTo($setting->waktu)) {
+            $expired = true;
+            break;
+        }
+    }
+
+    return view('edit.edit_guruu', compact('settings', 'expired','guruu'));
 }
 
 public function update(Request $request, $id)
@@ -108,15 +137,32 @@ public function update(Request $request, $id)
     return redirect('/guruu')->with('update_success', 'Data Berhasil Diupdate');
 }
 
- public function search(Request $request)
+    public function search(Request $request)
     {
-        $query = $request->input('query');
+        // Dapatkan input pencarian
+        $searchTerm = $request->input('search');
 
-        $users = User::where('name', 'LIKE', "%$query%")
-                    ->where('level', 'guru')
-                    ->paginate(10);
+        // Lakukan pencarian hanya jika input tidak kosong
+        if (!empty($searchTerm)) {
+            // Validasi input
+            $request->validate([
+                'search' => 'string', // Sesuaikan aturan validasi sesuai kebutuhan Anda
+            ]);
 
-        return view('halaman.guruu', ['users' => $users]);
+            // Lakukan pencarian dengan mempertimbangkan validasi input, level 'admin', dan status_pemilihan
+            $users = User::where('level', 'guru')
+                        ->where(function ($query) use ($searchTerm) {
+                            $query->where('name', 'like', "%{$searchTerm}%")
+                                ->orWhere('status_pemilihan', 'like', "%{$searchTerm}%"); // Ubah sesuai dengan tipe data status_pemilihan
+                        })
+                        ->get();
+        } else {
+            // Jika input kosong, ambil semua data user dengan level 'admin'
+            $users = User::where('level', 'guru')->get();
+        }
+
+        // Memberikan respons berdasarkan hasil pencarian
+        return response()->json($users);
     }
 
 
