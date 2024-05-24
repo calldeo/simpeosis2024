@@ -82,7 +82,7 @@
 						
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="{{ asset('dash/images/profile/pic1.jpg') }}" width="20" alt="">
+                                    <img src="{{ asset('dash/images/kaneta.png') }}" width="20" alt="">
 									<div class="header-info">
 										<span>{{auth()->user()->name}}</span>
 										<small>{{auth()->user()->level}}</small>

@@ -4,6 +4,7 @@
 
 <head>
     @include('template.headerr')
+    <title>E-vote | {{auth()->user()->level}} | Edit</title>
 </head>
 <body>
 
@@ -119,7 +120,7 @@
                                 </div>
                                 
                             </div>
-                            <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password makan tidak perlu diisi </label>
+                            <label class="text-label"style="color: red;">* Jika tidak ingin mengganti password maka tidak perlu diisi </label>
                         </div>
                         <div class="form-group">
                             <label>Select list (select one): *</label>

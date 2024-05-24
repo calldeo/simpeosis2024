@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('template.headerr')
+    <title>E-vote | {{auth()->user()->level}} | Setting </title>
 </head>
 <body>
     <!-- Preloader start -->

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Calon OSIS Baru</title>
     @include('template.headerr')
+    <title>E-vote | {{auth()->user()->level}} | Add</title>
+
     <script src="/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         // Initialize TinyMCE

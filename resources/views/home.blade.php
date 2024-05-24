@@ -3,6 +3,7 @@
 
 <head>
     @include('template.headerr')
+    <title>E-vote | {{auth()->user()->level}} |  Dashboard </title>
 </head>
 
 <body>
