@@ -133,4 +133,6 @@ Route::get('/setting', [SettingVoteController::class, 'index']);
 Route::post('/update-waktu-vote', [SettingVoteController::class, 'update'])->name('update.date');
 Route::get('/datapoling',[DataPlgController::class,'view'])->name('datapolling');
 Route::get('/cetaklaporan',[DataPlgController::class,'cetaklaporan'])->name('cetaklaporan');
+route::get('/petunjuk',[HomeController::class,'petunjuk'])->name('petunjuk');
+
 

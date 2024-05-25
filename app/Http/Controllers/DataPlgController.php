@@ -47,6 +47,8 @@ class DataPlgController extends Controller
 
       public function cetaklaporan()
     {
+        // Dapatkan calon dengan jumlah suara terbanyak
+        $calonTerpilih = Osis::orderBy('jumlah_vote', 'desc')->first();
        $cosis = Osis::all();
         
         // return view('halaman.datapolling', ['calonOsis' => $calonOsis]);
@@ -60,6 +62,6 @@ class DataPlgController extends Controller
         }
     }
 
-    return view('halaman.cetaklaporan',['cosis' => $cosis],compact('settings', 'expired'));
+    return view('halaman.cetaklaporan',['cosis' => $cosis],compact('settings', 'expired','calonTerpilih'));
     }
 }

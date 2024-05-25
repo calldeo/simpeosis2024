@@ -1,3 +1,4 @@
+ 
  <div class="deznav">
             <div class="deznav-scroll">
 				<div class="main-profile">
@@ -21,7 +22,7 @@
 							
 						</ul>
                         <ul aria-expanded="false">
-							<li><a href="/home">Petunjuk Pengunaan</a></li>
+							<li><a href="/petunjuk">Petunjuk Pengunaan</a></li>
 							
 						</ul>
 

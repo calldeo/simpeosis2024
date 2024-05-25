@@ -3,6 +3,7 @@
 
 <head>
     @include('template.headerr')
+     <title>E-vote | {{auth()->user()->level}} | Vote </title>
 </head>
 
 <body>
@@ -77,7 +78,7 @@
                                            
                                         </div>
                                         <p><strong>Periode: </strong><span> {{ $calon->periode }}</span></p>
-                                        <p><strong>NIS (Nomor Induk Sekolah): </strong><span> {{ $calon->NIS }} <i class="fa fa-check-circle text-success"></i></span></p>
+                                        <p><strong>NIS (Nomor Induk Siswa): </strong><span> {{ $calon->NIS }} <i class="fa fa-check-circle text-success"></i></span></p>
                                         <p><strong>Kelas: </strong><span>{{ $calon->kelas }}</span> </p>
                                         <p class="text-content">"{{ $calon->slogan }}"</p>
                                     </div>

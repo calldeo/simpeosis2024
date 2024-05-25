@@ -78,7 +78,7 @@
             </div>
         
                 <div class="row">
-                @foreach($calonOsis as $calon)
+                {{-- @foreach($calonOsis as $calon)
                     <div class="col-lg-12 col-xl-6">
                         <div class="card">
                             <div class="card-body">
@@ -99,7 +99,8 @@
                                                 </h4>
                                             </div>
                                             <p><strong>Periode: </strong><span> {{ $calon->periode }}</span></p>
-                                            <p><strong>NIS (Nomor Induk Sekolah): </strong><span> {{ $calon->NIS }} <i class="fa fa-check-circle text-success"></i></span></p>
+                                    <p><strong>NIS (Nomor Induk Siswa): </strong><span> {{ $calon->NIS }} <i class="fa fa-check-circle text-success"></i></span></p>
+
                                             <p><strong>Kelas: </strong><span>{{ $calon->kelas }}</span> </p>
                                             <p class="text-content">"{{ $calon->slogan }}"</p>
                                         </div>
@@ -116,8 +117,83 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    
+                @endforeach --}}
+ @foreach($calonOsis as $calon)
+                <div class="col-lg-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row m-b-30">
+                                <div class="col-md-5 col-xxl-12">
+                                    <div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
+                                        <div class="new-arrivals-img-contnent">
+                                            <img src="{{ asset('foto_calon/' . $calon->gambar) }}" class="card-img-fluid" alt="{{ $calon->nama_calon }}" data-toggle="modal" data-target="#myModal{{ $calon->id }}" >    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-xxl-12">
+                                    <div class="new-arrival-content position-relative">
+                                        <div class="comment-review star-rating">
+                                            <h4><p class="price" style="margin: 2px">{{ $calon->id }}</p>
+                                                <a href="">{{ $calon->nama_calon }}</a>
+                                               </h4>
+                                           
+                                        </div>
+                                        <p><strong>Periode: </strong><span> {{ $calon->periode }}</span></p>
+                                        <p><strong>NIS (Nomor Induk Siswa): </strong><span> {{ $calon->NIS }} <i class="fa fa-check-circle text-success"></i></span></p>
+                                        <p><strong>Kelas: </strong><span>{{ $calon->kelas }}</span> </p>
+                                        <p class="text-content">"{{ $calon->slogan }}"</p>
+                                    </div>
+                                </div>
+                                 <div class="col-6">
+                                        <h6>Progress
+                                            <span class="pull-right">{{number_format($presentaseVotePerCalon[$calon->id], 1) }}%</span>
+                                        </h6>
+                                        <div class="progress ">
+                                            <div class="progress-bar bg-info progress-animated" style="width: {{ $presentaseVotePerCalon[$calon->id] }}%; height:6px;" role="progressbar"></div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Modal -->
+                <div class="modal fade" id="myModal{{ $calon->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="myModalLabel">{{ $calon->nama_calon }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body d-flex align-items-center" style="margin-top: -40px">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4">
+                                            <img src="{{ asset('foto_calon/' . $calon->gambar) }}" class="img-fluid" alt="{{ $calon->nama_calon }} " style="object-fit: cover; width: 100%; height: 300px;">
+                                        </div>
+                                        <div class="col-md-8">                                          
+                                            <h6>{{ $calon->nama_calon }}</h6>
+                                            <p>{{ $calon->visimisi }}</p>                                                 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="modal-footer">
+                                {{-- <form action="{{ route('voting.vote') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id_user" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="id_calon" value="{{ $calon->id }}">
+                                    <button type="submit" class="btn btn-success">Vote</button>
+                                </form> --}}
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
 
             </div>
             
