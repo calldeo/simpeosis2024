@@ -18,8 +18,8 @@ class SettingVoteController extends Controller
 
         // Periksa setiap pengaturan waktu
         foreach ($settings as $setting) {
-            // Jika ada pengaturan yang diatur pada hari ini atau setelahnya, maka belum expired
-            if (Carbon::parse($setting->waktu)->isToday() || Carbon::parse($setting->waktu)->isFuture()) {
+            // Jika ada pengaturan yang diatur pada hari ini, maka belum expireds
+            if (Carbon::parse($setting->waktu)->isToday()) {
                 $expired = false;
                 break;
             }
@@ -48,7 +48,7 @@ class SettingVoteController extends Controller
 
         if ($setting->save()) {
             // Perbarui status expired berdasarkan tanggal saat ini
-            $expired = Carbon::now()->greaterThanOrEqualTo($tanggal);
+            $expired = Carbon::now()->greaterThan($tanggal); // Menggunakan greaterThan untuk menyembunyikan menu setelah tanggal
 
             // Simpan $expired dalam session
             session()->put('expired', $expired);

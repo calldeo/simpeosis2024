@@ -35,7 +35,7 @@
     <script>
     function redirectToSiswa() {
         // Ganti URL dengan URL halaman admin yang diinginkan
-        window.location.href = "/siswaa";
+        window.location.href = "/siswa";
     }
 	</script>
 	

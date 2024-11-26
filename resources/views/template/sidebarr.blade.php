@@ -1,4 +1,3 @@
- 
  <div class="deznav">
             <div class="deznav-scroll">
 				<div class="main-profile">
@@ -27,7 +26,7 @@
 						</ul>
 
                     </li>
-					@if(!$expired)
+					@if (session('expired') === false)
 					 <li><a  href="/vote" aria-expanded="false">
 							<i class="flaticon-077-menu-1"></i>
 							<span class="nav-text">Vote</span>
@@ -50,7 +49,7 @@
 						</a>
                        
                     </li>
-					<li><a  href="/siswaa" aria-expanded="false">
+					<li><a  href="/siswa" aria-expanded="false">
 							<i class="flaticon-044-file"></i>
 							<span class="nav-text">Data Siswa</span>
 						</a>
@@ -84,7 +83,7 @@
                 </ul>
 				<div class="copyright">
 					<p><strong>E-Vote </strong> © 2024 All Rights Reserved</p>
-					<p class="fs-12">Made with <span class="heart"></span> by SYNC</p>
+					<p class="fs-12">Made with <span class="heart"></span> by Deo Andreas</p>
 				</div>
 			</div>
         </div>

@@ -97,6 +97,7 @@ route::get('/add_guruu',[GuruuController::class,'add_guruu'])->name('add_guruu')
 Route::post('/guruu/store',[GuruuController::class,'store']);
 Route::get('/guruu/{id}/edit_guruu  ',[GuruuController::class,'edit']);
 Route::put('/guruu/{id}',[GuruuController::class,'update']);
+route::get('/download-template-guru', [GuruuController::class, 'downloadTemplate'])->name('download-template-guru');
 
 // Route::post('/importsiswa', [SiswaaController::class, 'siswaimportexcel'])->name('import-siswa');
 // route::get('/siswaa/search',[SiswaaController::class,'search'])->name('siswaa.search');
@@ -110,12 +111,13 @@ Route::put('/guruu/{id}',[GuruuController::class,'update']);
 
 Route::post('/importsiswa', [SiswaaController::class, 'siswaimportexcel'])->name('import-siswa');
 route::get('/siswa/search',[SiswaaController::class,'search'])->name('siswa.search');
-route::get('/siswaa',[SiswaaController::class,'siswaa'])->name('siswaa');
-Route::delete('/siswaa/{id}', [SiswaaController::class,'destroy'])->name('siswaa.destroy');
-route::get('/add_siswaa',[siswaaController::class,'add_siswaa'])->name('add_siswaa');
-Route::post('/siswaa/store',[SiswaaController::class,'store']);
-Route::get('/siswaa/{id}/edit_siswaa  ',[SiswaaController::class,'edit']);
-Route::put('/siswaa/{id}',[SiswaaController::class,'update']);
+route::get('/siswa',[SiswaaController::class,'siswaa'])->name('siswa');
+Route::delete('/siswa/{id}', [SiswaaController::class,'destroy'])->name('siswa.destroy');
+route::get('/add_siswa',[siswaaController::class,'add_siswaa'])->name('add_siswa');
+Route::post('/siswa/store',[SiswaaController::class,'store']);
+Route::get('/siswa/{id}/edit_siswa',[SiswaaController::class,'edit']);
+Route::put('/siswa/{id}',[SiswaaController::class,'update']);
+route::get('/download-template', [SiswaaController::class, 'downloadTemplate'])->name('download-template');
 
 route::get('/calonosis',[OsisController::class,'osis'])->name('osis');
 route::get('/add_osis',[OsisController::class,'add_osis'])->name('add_osis');

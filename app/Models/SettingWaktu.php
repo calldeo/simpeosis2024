@@ -20,4 +20,10 @@ class SettingWaktu extends Model
 
     // Kolom-kolom yang dapat diisi secara massal
     protected $fillable = ['waktu'];
+
+    // Metode untuk memeriksa apakah waktu sudah diatur
+    public static function isWaktuSet()
+    {
+        return self::whereNotNull('waktu')->exists();
+    }
 }

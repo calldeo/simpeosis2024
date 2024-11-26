@@ -84,7 +84,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form action="/siswaa/{{ $siswaa->id }}" method="POST" enctype="multipart/form-data">
+                                    <form action="/siswa/{{ $siswa->id }}" method="POST" enctype="multipart/form-data">
                                         @method('put')
                                         @csrf
                                      <div class="form-group">
@@ -93,7 +93,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div>
-                                        <input type="text" class="form-control" id="val-username1" name="name" value="{{ $siswaa->name }}" placeholder="Enter a name.." required>
+                                        <input type="text" class="form-control" id="val-username1" name="name" value="{{ $siswa->name }}" placeholder="Enter a name.." required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -102,7 +102,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                                         </div>
-                                        <input type="email" class="form-control" id="val-username1" name="email" placeholder="Enter a email.." value="{{ $siswaa->email }}" required>
+                                        <input type="email" class="form-control" id="val-username1" name="email" placeholder="Enter a email.." value="{{ $siswa->email }}" required>
                                     </div>
                                 </div>
                         <div class="form-group">
@@ -111,7 +111,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $siswaa->password }}">
+                                <input type="password" class="form-control" id="dz-password" name="password" placeholder="Choose a safe one.." value="{{ $siswa->password }}">
                                 <div class="input-group-append show-pass ">
                                     <span class="input-group-text "> 
                                         <i class="fa fa-eye-slash"></i>

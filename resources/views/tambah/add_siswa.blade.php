@@ -91,7 +91,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form class="form-valide-with-icon" action="/siswaa/store" method="post" enctype="multipart/form-data">
+                                    <form class="form-valide-with-icon" action="/siswa/store" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
                                         <label class="text-label">Name *</label>

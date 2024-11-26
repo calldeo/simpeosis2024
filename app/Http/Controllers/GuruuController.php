@@ -167,15 +167,78 @@ public function update(Request $request, $id)
 
 
     public function guruimportexcel(Request $request) {
+        try {
+            // Validasi file yang diupload
+            $request->validate([
+                'file' => 'required|mimes:xlsx,xls|max:2048'
+            ]);
 
-        // DB::table('users')->where('level','guru')->delete();
-        User::query()->where('level','guru')->delete();
-        $file=$request->file('file');
-        $namafile = $file->getClientOriginalName();
-        $file->move('DataGuru', $namafile);
+            // Memproses file Excel yang diunggah langsung dari request
+            $file = $request->file('file');
+            
+            // Baca file Excel langsung dari temporary file
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathname());
+            $worksheet = $spreadsheet->getActiveSheet();
+            
+            // Mulai dari baris ke-3
+            $highestRow = $worksheet->getHighestRow();
+            $data = [];
+            
+            for ($row = 3; $row <= $highestRow; $row++) {
+                $nama = $worksheet->getCell('A'.$row)->getValue();
+                $level = $worksheet->getCell('B'.$row)->getValue();
+                $email = $worksheet->getCell('C'.$row)->getValue();
+                $password = $worksheet->getCell('D'.$row)->getValue();
+                
+                if (!empty($nama)) {
+                    $data[] = [
+                        'name' => $nama,
+                        'level' => $level,
+                        'email' => $email,
+                        'password' => bcrypt($password)
+                    ];
+                }
+            }
 
-        Excel::import(new UserImport, public_path('/DataGuru/'.$namafile));
-        return redirect('/guruu')->with('success', 'Data Berhasil Ditambahkan');
+            // Menghapus data guru yang ada
+            User::query()->where('level','guru')->forceDelete();
         
+            // Import data baru
+            User::insert($data);
+        
+            return redirect('/guruu')->with('success', 'Data Berhasil Ditambahkan');
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+    public function downloadTemplate()
+    {
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Data Guru');
+        $sheet->setCellValue('A1', 'Import Data Guru');
+        $sheet->mergeCells('A1:D1');
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+        
+        $sheet->setCellValue('A2', 'Nama');
+        $sheet->setCellValue('B2', 'Level');
+        $sheet->setCellValue('C2', 'Email');
+        $sheet->setCellValue('D2', 'Password');
+        
+        $sheet->setCellValue('F2', 'Keterangan')->getStyle('F2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FFFF00');
+        $sheet->setCellValue('F3', '1. Pengisian data dimulai dari baris ke-3');
+        $sheet->setCellValue('F4', '2. Kolom Level harus diisi "guru"');
+        $sheet->setCellValue('F5', '3. Email dan Password wajib diisi');
+        
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $filename = 'template-guru.xlsx';
+        $filePath = storage_path('app/public/' . $filename);
+        $writer->save($filePath);
+        
+        return response()->download($filePath, $filename)->deleteFileAfterSend(true);
     }
 }

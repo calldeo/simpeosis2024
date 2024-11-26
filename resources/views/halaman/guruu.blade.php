@@ -47,6 +47,7 @@
                                                 <input id="searchInput" type="text" class="form-control" placeholder="Cari sesuatu di sini..." name="query">
                                             </form>
                                         </div>
+                                       
                                     <!-- Tombol untuk membuka modal impor data guru -->
         <button type="button" class="btn btn-warning ml-2" title="Import" data-toggle="modal" data-target="#importModal">
             <i class="fa fa-upload"></i> 
@@ -62,6 +63,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="text-center mb-4">
+                            <a href="{{ route('download-template-guru') }}" class="btn btn-info btn-sm">
+                                <i class="fa fa-download mr-1"></i> Download Template Excel
+                            </a>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <small>
+                                <i class="fa fa-info-circle mr-1"></i>
+                                Silakan download template terlebih dahulu sebelum melakukan import data
+                            </small>
+                        </div>
+
                         <!-- Form untuk mengunggah file Excel -->
                         <form action="{{ route('import-guru') }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -69,7 +83,12 @@
                                 <label for="file">Pilih File Excel</label>
                                 <input type="file" class="form-control-file" id="file" name="file" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Import</button>
+                            <div class="text-right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-upload mr-1"></i> Import Data
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -179,7 +198,7 @@
             <!-- Footer start -->
             <div class="footer">
                 <div class="copyright">
-                    <p>Copyright © Designed &amp; Developed by <a href="/home" target="_blank">SYNC</a> 2024</p>
+                    <p>Copyright © Designed &amp; Developed by <a href="/home" target="_blank">Deo Andreas</a> 2024</p>
                 </div>
             </div>
             <!-- Footer end -->
@@ -239,13 +258,14 @@
                                         </td>
                                     <td class="text-align: left;">
                                         <div class="d-flex justify-content-center">
-                                            <form id="editForm_${g.id}" action="/guru/${g.id}/edit_guru" method="GET">
+                                            <form id="editForm_${g.id}" action="/guruu/${g.id}/edit_guruu" method="GET">
                                                 <button type="submit" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></button>
                                             </form>
                                             <div class="mx-1"></div>
-                                            <form id="deleteForm_${g.id}" action="/guru/${g.id}/delete" method="POST" class="delete-form">
+                                            <form id="deleteForm_${g.id}" action="/guruu/${g.id}" method="POST" class="delete-form">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-danger shadow btn-xs sharp delete-btn" data-id="${g.id}"><i class="fa fa-trash"></i></button>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="button" class="btn btn-danger shadow btn-xs sharp delete-btn" data-id="${g.id}"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </div>
                                     </td>
